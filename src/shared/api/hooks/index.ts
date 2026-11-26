@@ -62,3 +62,6 @@ export * from './system/system.query.hooks'
 
 export * from './users/users.mutation.hooks'
 export * from './users/users.query.hooks'
+
+export * from './qwdtt/qwdtt.query.hooks'
+export * from './qwdtt/qwdtt.mutation.hooks'

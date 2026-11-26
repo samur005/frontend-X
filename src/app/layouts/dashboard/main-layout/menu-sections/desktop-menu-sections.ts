@@ -11,6 +11,7 @@ import {
     TbDeviceAnalytics,
     TbFlame,
     TbFolder,
+    TbHash,
     TbHexagon,
     TbPackage,
     TbRadar2,
@@ -257,6 +258,12 @@ export const useDesktopMenuSections = (): MenuItem[] => {
                         href: ROUTES.DASHBOARD.MANAGEMENT.REMNAWAVE_SETTINGS,
                         icon: Logo,
                         id: 'remnawave-settings'
+                    },
+                    {
+                        name: t('constants.qwdtt'),
+                        href: ROUTES.DASHBOARD.MANAGEMENT.QWDTT,
+                        icon: TbHash,
+                        id: 'qwdtt'
                     }
                 ]
             }
