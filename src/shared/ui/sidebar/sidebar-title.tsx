@@ -2,6 +2,7 @@ import { Text } from '@mantine/core'
 import { useMemo } from 'react'
 
 import { useGetAuthStatus } from '@shared/api/hooks/auth/auth.query.hooks'
+import { DEFAULT_BRAND_TITLE_PARTS } from '@shared/constants'
 import { parseColoredTextUtil } from '@shared/utils/misc'
 
 import classes from './sidebar.module.css'
@@ -14,10 +15,7 @@ export const SidebarTitleShared = () => {
             return parseColoredTextUtil(authStatus.branding.title)
         }
 
-        return [
-            { text: 'Remna', color: 'cyan' },
-            { text: 'wave', color: 'white' }
-        ]
+        return [...DEFAULT_BRAND_TITLE_PARTS]
     }, [authStatus])
 
     return (

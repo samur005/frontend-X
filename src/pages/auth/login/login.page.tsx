@@ -7,6 +7,7 @@ import { GetStatusCommand } from '@remnawave/backend-contract'
 import { useMemo } from 'react'
 
 import { useGetAuthStatus } from '@shared/api/hooks/auth/auth.query.hooks'
+import { DEFAULT_BRAND_TITLE_PARTS } from '@shared/constants'
 import { Logo, Page } from '@shared/ui'
 import { parseColoredTextUtil } from '@shared/utils/misc'
 
@@ -96,10 +97,7 @@ export const LoginPage = () => {
             return parseColoredTextUtil(authStatus.branding.title)
         }
 
-        return [
-            { text: 'Remna', color: 'cyan' },
-            { text: 'wave', color: 'white' }
-        ]
+        return [...DEFAULT_BRAND_TITLE_PARTS]
     }, [authStatus])
 
     const isRegister = !authStatus?.isLoginAllowed && authStatus?.isRegisterAllowed
