@@ -1923,8 +1923,8 @@
         "dns": "DNS",
         "listen-raw": "Listen raw",
         "listen-direct": "Listen direct (optional)",
-        "subscription-host": "Subscription host",
-        "subscription-host-description": "Peer host used in qwdtt:// links. Falls back to the first assigned node address.",
+        "subscription-host": "Subscription host (fallback)",
+        "subscription-host-description": "Fallback only: used for qWDTT hosts without their own address when the node address is private, and for the single link when no qWDTT hosts exist. For several nodes, create qWDTT hosts under Hosts — each has its own address.",
         "client-port": "Client port",
         "workers": "Workers",
         "vk-hashes": "Pinned / current VK hashes",
@@ -1990,5 +1990,21 @@
         "binary-missing": "binary missing"
       }
     }
+  },
+  "qwdtt-host": {
+    "type-xray": "Xray (inbound)",
+    "type-qwdtt": "qWDTT",
+    "node": "Node (location)",
+    "node-description": "A qWDTT host is bound to one node. The qWDTT sidecar must be assigned to that node.",
+    "address-placeholder": "empty — node address",
+    "address-order": "Subscription peer: this host's address and port. If the address is empty, the node's public address is used (private 10/8, 172.16/12, 192.168/16, 127/8 are skipped). If that is private too, the global qWDTT subscription host is used as a fallback.",
+    "warning-disabled": "qWDTT is disabled in settings — this host will not be in subscriptions.",
+    "warning-node-not-assigned": "The qWDTT sidecar is not assigned to this node (qWDTT settings → Assigned nodes). The host is skipped until it is.",
+    "warning-private-address": "The host address is private or local, clients cannot reach it. Use a public domain or IP, or leave it empty.",
+    "warning-no-peer": "No public address found: the node address is private and the global subscription host is empty. Set the host address, otherwise it is skipped.",
+    "peer-ok": "Subscription peer will be {{peer}} ({{source}}).",
+    "source-host": "host address",
+    "source-node": "node public address",
+    "source-subHost": "global fallback host"
   }
 }

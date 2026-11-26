@@ -7,6 +7,7 @@ import {
     Group,
     Popover,
     NumberInput,
+    SegmentedControl,
     Stack,
     Text,
     TextInput
@@ -28,6 +29,7 @@ import { PopoverWithInfoShared } from '@shared/ui/popovers/popover-with-info'
 import { SectionCard } from '@shared/ui/section-card'
 
 import { HostVisibility } from './host-visibility'
+import { QwdttHostSection } from './qwdtt/qwdtt-host-section'
 import { IProps } from './interfaces'
 import { getHostJsonFields } from './json-fields'
 import {
@@ -81,6 +83,65 @@ export const BaseHostForm = <
 
     const hostJsonFields = useMemo(() => getHostJsonFields(t), [t])
 
+    // Remnawave-X: qWDTT host type (no Xray inbound, exactly one node).
+    const anyForm = form as unknown as {
+        getValues: () => Record<string, unknown>
+        setFieldValue: (path: string, value: unknown) => void
+        setValues: (values: Record<string, unknown>) => void
+        setDirty: (values: Record<string, boolean>) => void
+        setTouched: (values: Record<string, boolean>) => void
+    }
+    const [isQwdtt, setIsQwdtt] = useState(() => Boolean(anyForm.getValues().isQwdtt))
+    const [qwdttNode, setQwdttNode] = useState<null | string>(() => {
+        const current = anyForm.getValues().nodes as string[] | undefined
+        return current && current.length > 0 ? current[0] : null
+    })
+    const [qwdttAddress, setQwdttAddress] = useState<string | undefined>(
+        () => anyForm.getValues().address as string | undefined
+    )
+    const [qwdttPort, setQwdttPort] = useState<number | undefined>(
+        () => anyForm.getValues().port as number | undefined
+    )
+    form.watch('isQwdtt' as never, ({ value }: { value: unknown }) => setIsQwdtt(Boolean(value)))
+    form.watch('address' as never, ({ value }: { value: unknown }) =>
+        setQwdttAddress(value as string | undefined)
+    )
+    form.watch('port' as never, ({ value }: { value: unknown }) =>
+        setQwdttPort(value as number | undefined)
+    )
+    form.watch('nodes' as never, ({ value }: { value: unknown }) => {
+        const list = value as string[] | undefined
+        setQwdttNode(list && list.length > 0 ? list[0] : null)
+    })
+
+    const markDirty = (...keys: string[]) => {
+        const flags = Object.fromEntries(keys.map((key) => [key, true]))
+        anyForm.setTouched(flags)
+        anyForm.setDirty(flags)
+    }
+
+    const switchHostType = (value: string) => {
+        if (value === 'qwdtt') {
+            const values = anyForm.getValues()
+            anyForm.setFieldValue('isQwdtt', true)
+            anyForm.setFieldValue('inbound', undefined)
+            const currentNodes = (values.nodes as string[] | undefined) ?? []
+            anyForm.setFieldValue('nodes', currentNodes.slice(0, 1))
+            if (!values.port) {
+                anyForm.setFieldValue('port', 56000)
+            }
+        } else {
+            anyForm.setFieldValue('isQwdtt', false)
+            anyForm.setFieldValue('inbound', { configProfileUuid: '', configProfileInboundUuid: '' })
+        }
+        markDirty('isQwdtt', 'inbound', 'nodes', 'port')
+    }
+
+    const selectQwdttNode = (nodeUuid: null | string) => {
+        anyForm.setFieldValue('nodes', nodeUuid ? [nodeUuid] : [])
+        markDirty('nodes')
+    }
+
     const srrRuleNames = useMemo(
         () => [...new Set(responseRules.map((rule) => rule.name))],
         [responseRules]
@@ -126,11 +187,12 @@ export const BaseHostForm = <
 
     const saveInbound = (inbound: string, configProfileUuid: string) => {
         form.setValues({
+            isQwdtt: false,
             inbound: {
                 configProfileInboundUuid: inbound,
                 configProfileUuid
             }
-        } as Partial<T>)
+        } as unknown as Partial<T>)
         form.setTouched({
             configProfileInboundUuid: true,
             configProfileUuid: true
@@ -256,7 +318,30 @@ export const BaseHostForm = <
                                         required={!removeRequiredFields}
                                     />
 
-                                    <Stack gap="xs">
+                                    {!isBulkEdit && (
+                                        <SegmentedControl
+                                            data={[
+                                                { label: t('qwdtt-host.type-xray'), value: 'xray' },
+                                                { label: t('qwdtt-host.type-qwdtt'), value: 'qwdtt' }
+                                            ]}
+                                            fullWidth
+                                            onChange={switchHostType}
+                                            value={isQwdtt ? 'qwdtt' : 'xray'}
+                                        />
+                                    )}
+
+                                    {isQwdtt && !isBulkEdit && (
+                                        <QwdttHostSection
+                                            address={qwdttAddress}
+                                            error={form.errors.nodes ?? null}
+                                            nodes={nodes}
+                                            onNodeChange={selectQwdttNode}
+                                            port={qwdttPort}
+                                            selectedNodeUuid={qwdttNode}
+                                        />
+                                    )}
+
+                                    <Stack gap="xs" display={isQwdtt && !isBulkEdit ? 'none' : undefined}>
                                         <HostSelectInboundFeature
                                             activeConfigProfileInbound={
                                                 form.getValues().inbound
@@ -302,8 +387,12 @@ export const BaseHostForm = <
                                                 />
                                             }
                                             {...form.getInputProps('address')}
-                                            placeholder="example.com"
-                                            required={!removeRequiredFields}
+                                            placeholder={
+                                                isQwdtt
+                                                    ? t('qwdtt-host.address-placeholder')
+                                                    : 'example.com'
+                                            }
+                                            required={!removeRequiredFields && !isQwdtt}
                                             rightSection={patternHoverCard(true, true, true)}
                                             rightSectionPointerEvents="auto"
                                             w="65%"
@@ -336,7 +425,7 @@ export const BaseHostForm = <
                                             }
                                             max={65535}
                                             min={1}
-                                            placeholder="443"
+                                            placeholder={isQwdtt ? '56000' : '443'}
                                             required={!removeRequiredFields}
                                             w="30%"
                                         />

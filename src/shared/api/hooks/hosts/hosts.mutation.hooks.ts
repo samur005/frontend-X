@@ -11,12 +11,19 @@ import {
     UpdateManyHostsCommand
 } from '@remnawave/backend-contract'
 
+import {
+    CloneHostResponseSchema,
+    CreateHostRequestBodySchema,
+    CreateHostResponseSchema,
+    UpdateHostRequestBodySchema,
+    UpdateHostResponseSchema
+} from '../../hosts-contract'
 import { createMutationHook } from '../../tsq-helpers'
 
 export const useCreateHost = createMutationHook({
     endpoint: CreateHostCommand.TSQ_url,
-    bodySchema: CreateHostCommand.RequestBodySchema,
-    responseSchema: CreateHostCommand.ResponseSchema,
+    bodySchema: CreateHostRequestBodySchema,
+    responseSchema: CreateHostResponseSchema,
     requestMethod: CreateHostCommand.endpointDetails.REQUEST_METHOD,
     rMutationParams: {
         onError: (error) => {
@@ -33,7 +40,7 @@ export const useCreateHost = createMutationHook({
 export const useCloneHost = createMutationHook({
     endpoint: CloneHostCommand.TSQ_url,
     bodySchema: CloneHostCommand.RequestBodySchema,
-    responseSchema: CloneHostCommand.ResponseSchema,
+    responseSchema: CloneHostResponseSchema,
     requestMethod: CloneHostCommand.endpointDetails.REQUEST_METHOD,
     rMutationParams: {
         onError: (error) => {
@@ -49,8 +56,8 @@ export const useCloneHost = createMutationHook({
 
 export const useUpdateHost = createMutationHook({
     endpoint: UpdateHostCommand.TSQ_url,
-    bodySchema: UpdateHostCommand.RequestBodySchema,
-    responseSchema: UpdateHostCommand.ResponseSchema,
+    bodySchema: UpdateHostRequestBodySchema,
+    responseSchema: UpdateHostResponseSchema,
     requestMethod: UpdateHostCommand.endpointDetails.REQUEST_METHOD,
     rMutationParams: {
         onSuccess: () => {

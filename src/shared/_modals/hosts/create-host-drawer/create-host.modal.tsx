@@ -2,16 +2,16 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import { Drawer } from '@mantine/core'
 import { useForm, schemaResolver } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
-import {
-    CreateHostCommand,
-    INTERNAL_SQUADS_MODE,
-    SECURITY_LAYERS
-} from '@remnawave/backend-contract'
+import { INTERNAL_SQUADS_MODE, SECURITY_LAYERS } from '@remnawave/backend-contract'
 import { useTranslation } from 'react-i18next'
 import { PiListChecks } from 'react-icons/pi'
 
 import { useNiceMantineModal } from '@shared/_modals/use-nice-modal'
 import { queryClient } from '@shared/api'
+import {
+    CreateHostRequestBodySchema,
+    TCreateHostRequestBody
+} from '@shared/api/hosts-contract'
 import {
     QueryKeys,
     useCreateHost,
@@ -43,7 +43,7 @@ export const CreateHostDrawer = NiceModal.create(() => {
     const { data: hostTags } = useGetHostTags()
     const { data: subscriptionSettings } = useGetSubscriptionSettings()
 
-    const form = useForm<CreateHostCommand.RequestBody>({
+    const form = useForm<TCreateHostRequestBody>({
         mode: 'uncontrolled',
         name: 'create-host-form',
         validateInputOnBlur: true,
@@ -52,7 +52,7 @@ export const CreateHostDrawer = NiceModal.create(() => {
                 form.setFieldValue('vlessRouteId', null)
             }
         },
-        validate: schemaResolver(CreateHostCommand.RequestBodySchema),
+        validate: schemaResolver(CreateHostRequestBodySchema),
 
         initialValues: {
             isDisabled: true,
@@ -60,6 +60,7 @@ export const CreateHostDrawer = NiceModal.create(() => {
             port: 0,
             remark: '',
             address: '',
+            isQwdtt: false,
             inbound: {
                 configProfileUuid: '',
                 configProfileInboundUuid: ''
@@ -88,7 +89,23 @@ export const CreateHostDrawer = NiceModal.create(() => {
     })
 
     const handleSubmit = form.onSubmit(async (values) => {
-        if (!values.inbound.configProfileInboundUuid || !values.inbound.configProfileUuid) {
+        if (values.isQwdtt) {
+            const { inbound: _inbound, ...rest } = values
+            createHost({
+                variables: {
+                    ...rest,
+                    isQwdtt: true,
+                    address: (values.address ?? '').trim(),
+                    sockoptParams: parseJsonField(values.sockoptParams),
+                    muxParams: parseJsonField(values.muxParams),
+                    xhttpExtraParams: parseJsonField(values.xhttpExtraParams),
+                    finalMask: parseJsonField(values.finalMask)
+                }
+            })
+            return null
+        }
+
+        if (!values.inbound?.configProfileInboundUuid || !values.inbound.configProfileUuid) {
             notifications.show({
                 title: t('common.message.error'),
                 message: t('create-host-modal.widget.please-select-the-config-profile-and-inbound'),
@@ -116,7 +133,7 @@ export const CreateHostDrawer = NiceModal.create(() => {
     })
 
     form.watch('inbound.configProfileInboundUuid', ({ value }) => {
-        const { configProfileUuid } = form.getValues().inbound
+        const configProfileUuid = form.getValues().inbound?.configProfileUuid
         if (!configProfileUuid) {
             return
         }
@@ -157,7 +174,7 @@ export const CreateHostDrawer = NiceModal.create(() => {
             ) : (
                 <BaseHostForm
                     configProfiles={configProfiles.configProfiles}
-                    form={form}
+                    form={form as never}
                     handleSubmit={handleSubmit}
                     hostTags={hostTags.tags}
                     internalSquads={internalSquads.internalSquads}

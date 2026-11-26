@@ -1,8 +1,12 @@
 import { useForm, schemaResolver } from '@mantine/form'
-import { UpdateHostCommand } from '@remnawave/backend-contract'
 import { useEffect } from 'react'
 
 import { queryClient } from '@shared/api'
+import {
+    THostItem,
+    TUpdateHostRequestBody,
+    UpdateHostRequestBodySchema
+} from '@shared/api/hosts-contract'
 import {
     QueryKeys,
     useGetConfigProfiles,
@@ -18,7 +22,7 @@ import { LoaderModalShared } from '@shared/ui/loader-modal'
 import { parseJsonField, stringifyJsonField } from '@shared/utils/misc'
 
 interface IProps {
-    host: UpdateHostCommand.Response['response']
+    host: THostItem
     onClose: () => void
 }
 
@@ -32,7 +36,7 @@ export const EditHostDrawerContent = (props: IProps) => {
     const { data: hostTags } = useGetHostTags()
     const { data: subscriptionSettings } = useGetSubscriptionSettings()
 
-    const form = useForm<UpdateHostCommand.RequestBody>({
+    const form = useForm<TUpdateHostRequestBody>({
         name: 'edit-host-form',
         mode: 'uncontrolled',
         validateInputOnBlur: true,
@@ -41,7 +45,7 @@ export const EditHostDrawerContent = (props: IProps) => {
                 form.setFieldValue('vlessRouteId', null)
             }
         },
-        validate: schemaResolver(UpdateHostCommand.RequestBodySchema.omit({ uuid: true }))
+        validate: schemaResolver(UpdateHostRequestBodySchema.omit({ uuid: true }))
     })
 
     const { mutate: updateHost, isPending: isUpdateHostPending } = useUpdateHost({
@@ -70,10 +74,13 @@ export const EditHostDrawerContent = (props: IProps) => {
                 path: host.path ?? undefined,
                 alpn: host.alpn ?? undefined,
                 fingerprint: host.fingerprint ?? undefined,
-                inbound: {
-                    configProfileUuid: host.inbound.configProfileUuid ?? '',
-                    configProfileInboundUuid: host.inbound.configProfileInboundUuid ?? ''
-                },
+                isQwdtt: host.isQwdtt,
+                inbound: host.isQwdtt
+                    ? undefined
+                    : {
+                          configProfileUuid: host.inbound.configProfileUuid ?? '',
+                          configProfileInboundUuid: host.inbound.configProfileInboundUuid ?? ''
+                      },
                 serverDescription: host.serverDescription ?? undefined,
                 xhttpExtraParams: stringifyJsonField(host.xhttpExtraParams),
                 muxParams: stringifyJsonField(host.muxParams),
@@ -117,9 +124,11 @@ export const EditHostDrawerContent = (props: IProps) => {
     })
 
     const handleSubmit = form.onSubmit(async (values) => {
+        const { inbound, ...rest } = values
         updateHost({
             variables: {
-                ...values,
+                ...rest,
+                ...(values.isQwdtt ? {} : { inbound }),
                 uuid: host.uuid,
                 xhttpExtraParams: parseJsonField(values.xhttpExtraParams),
                 muxParams: parseJsonField(values.muxParams),
@@ -143,7 +152,7 @@ export const EditHostDrawerContent = (props: IProps) => {
     return (
         <BaseHostForm
             configProfiles={configProfiles.configProfiles}
-            form={form}
+            form={form as never}
             handleSubmit={handleSubmit}
             hostTags={hostTags.tags}
             internalSquads={internalSquads.internalSquads}

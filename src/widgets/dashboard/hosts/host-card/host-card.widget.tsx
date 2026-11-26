@@ -83,6 +83,11 @@ export function HostCardWidget(props: IProps) {
         (configProfile) => configProfile.uuid === item.inbound.configProfileUuid
     )
 
+    const isQwdttHost = Boolean((item as { isQwdtt?: boolean }).isQwdtt)
+    const qwdttNodeName = isQwdttHost
+        ? (nodesByUuid.get(item.nodes?.[0] ?? '')?.name ?? '—')
+        : ''
+
     const inboundTag = configProfile?.inbounds.find(
         (inbound) => inbound.uuid === item.inbound.configProfileInboundUuid
     )?.tag
@@ -139,7 +144,7 @@ export function HostCardWidget(props: IProps) {
                 className={cx(classes.item, classes.mobileItem, {
                     [classes.itemDragging]: isDragging || isHovered,
                     [classes.selectedItem]: isSelected,
-                    [classes.danglingItem]: !configProfile?.uuid
+                    [classes.danglingItem]: !configProfile?.uuid && !isQwdttHost
                 })}
                 data-drag-overlay={isDragOverlay}
                 ref={isDragOverlay ? undefined : ref}
@@ -228,9 +233,9 @@ export function HostCardWidget(props: IProps) {
                             <Stack gap="xs">
                                 <Badge
                                     autoContrast
-                                    color={configProfile?.uuid ? ch.hex(configProfile.uuid) : 'red'}
+                                    color={isQwdttHost ? 'teal' : configProfile?.uuid ? ch.hex(configProfile.uuid) : 'red'}
                                     leftSection={
-                                        configProfile?.uuid ? (
+                                        configProfile?.uuid || isQwdttHost ? (
                                             <XrayLogo size={12} />
                                         ) : (
                                             <TbAlertCircle size={12} />
@@ -242,8 +247,14 @@ export function HostCardWidget(props: IProps) {
                                     }}
                                     variant="transparent"
                                 >
-                                    {configProfile?.name || 'DANGLING'}
-                                    {item.inbound.configProfileInboundUuid && (
+                                    {isQwdttHost ? 'qWDTT' : configProfile?.name || 'DANGLING'}
+                                    {isQwdttHost && (
+                                    <>
+                                        <span style={{ margin: '0 6px', opacity: 0.5 }}>›</span>
+                                        <span style={{ opacity: 0.75 }}>{qwdttNodeName}</span>
+                                    </>
+                                )}
+                                {!isQwdttHost && item.inbound.configProfileInboundUuid && (
                                         <>
                                             <span style={{ margin: '0 6px', opacity: 0.5 }}>›</span>
                                             <span style={{ opacity: 0.75 }}>
@@ -312,7 +323,7 @@ export function HostCardWidget(props: IProps) {
             className={cx(classes.item, {
                 [classes.itemDragging]: isDragging || isHovered,
                 [classes.selectedItem]: isSelected,
-                [classes.danglingItem]: !configProfile?.uuid
+                [classes.danglingItem]: !configProfile?.uuid && !isQwdttHost
             })}
             data-drag-overlay={isDragOverlay}
             ref={isDragOverlay ? undefined : ref}
@@ -576,9 +587,9 @@ export function HostCardWidget(props: IProps) {
                         >
                             <Badge
                                 autoContrast
-                                color={configProfile?.uuid ? ch.hex(configProfile.uuid) : 'red'}
+                                color={isQwdttHost ? 'teal' : configProfile?.uuid ? ch.hex(configProfile.uuid) : 'red'}
                                 leftSection={
-                                    configProfile?.uuid ? (
+                                    configProfile?.uuid || isQwdttHost ? (
                                         <XrayLogo size={12} />
                                     ) : (
                                         <TbAlertCircle size={12} />
@@ -590,8 +601,14 @@ export function HostCardWidget(props: IProps) {
                                 }}
                                 variant="transparent"
                             >
-                                {configProfile?.name || 'DANGLING'}
-                                {item.inbound.configProfileInboundUuid && (
+                                {isQwdttHost ? 'qWDTT' : configProfile?.name || 'DANGLING'}
+                                {isQwdttHost && (
+                                    <>
+                                        <span style={{ margin: '0 6px', opacity: 0.5 }}>›</span>
+                                        <span style={{ opacity: 0.75 }}>{qwdttNodeName}</span>
+                                    </>
+                                )}
+                                {!isQwdttHost && item.inbound.configProfileInboundUuid && (
                                     <>
                                         <span style={{ margin: '0 6px', opacity: 0.5 }}>›</span>
                                         <span style={{ opacity: 0.75 }}>
