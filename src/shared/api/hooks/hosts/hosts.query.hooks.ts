@@ -3,6 +3,7 @@ import { GetHostCommand, GetHostsCommand, GetHostsTagsCommand } from '@remnawave
 
 import { sToMs } from '@shared/utils/time-utils'
 
+import { GetHostResponseSchema, GetHostsResponseSchema } from '../../hosts-contract'
 import { createGetQueryHook, errorHandler } from '../../tsq-helpers'
 
 export const hostsQueryKeys = createQueryKeys('hosts', {
@@ -19,7 +20,7 @@ export const hostsQueryKeys = createQueryKeys('hosts', {
 
 export const useGetHosts = createGetQueryHook({
     endpoint: GetHostsCommand.TSQ_url,
-    responseSchema: GetHostsCommand.ResponseSchema,
+    responseSchema: GetHostsResponseSchema,
     getQueryKey: () => hostsQueryKeys.getAllHosts.queryKey,
     rQueryParams: {
         refetchOnMount: true
@@ -42,7 +43,7 @@ export const useGetHostTags = createGetQueryHook({
 
 export const useGetHost = createGetQueryHook({
     endpoint: GetHostCommand.TSQ_url,
-    responseSchema: GetHostCommand.ResponseSchema,
+    responseSchema: GetHostResponseSchema,
     routeParamsSchema: GetHostCommand.RequestParamSchema,
     getQueryKey: ({ route }) => hostsQueryKeys.getHost(route!).queryKey,
     rQueryParams: {},

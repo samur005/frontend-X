@@ -20,7 +20,8 @@
     "tools": "ابزارها",
     "srh-inspector": "بازرسی SRH",
     "response-rules": "قوانین پاسخ",
-    "remnawave-settings": "تنظیمات Remnawave",
+    "remnawave-settings": "تنظیمات Remnawave X",
+    "qwdtt": "qWDTT",
     "node-plugins": "Plugins",
     "quick-open": "Quick open",
     "tb-reports": "Torrent Blocker Reports",
@@ -295,7 +296,7 @@
       "subscription-qr-code": "اشتراک کد QR",
       "edit-user-headline": "ویرایش کاربر",
       "subscription-url-description-line-1": "دامنه و مسیر استخراج شده از فایل .env:",
-      "subscription-url-description-line-2": "برای تغییر این مقدار لطفا فایل .env را ویرایش کرده و سپس Remnawave را با این کامند ریستارت کنید:",
+      "subscription-url-description-line-2": "برای تغییر این مقدار لطفا فایل .env را ویرایش کرده و سپس Remnawave X را با این کامند ریستارت کنید:",
       "management": "مدیریت",
       "danger-zone": "هشدار",
       "detailed-info": "اطلاعات دقیق",
@@ -332,9 +333,9 @@
     "single-domain": "تک‌دامنه",
     "default-mode-for-one-domain": "حالت پیشفرض برای یک دامنه",
     "multi-domain": "چند دامنه",
-    "multi-domain-description": "چندین دامنه که با کاما (,) جدا شده‌اند، Remnawave یکی از دامنه‌ها را به صورت تصادفی انتخاب خواهد کرد.",
+    "multi-domain-description": "چندین دامنه که با کاما (,) جدا شده‌اند، Remnawave X یکی از دامنه‌ها را به صورت تصادفی انتخاب خواهد کرد.",
     "wildcard-domain": "دامنه wildcard",
-    "wildcard-domain-description": "الگوی wildcard برای دامنه. Remnawave به جای * یک رشته متنی رندوم جایگذاری خواهد کرد",
+    "wildcard-domain-description": "الگوی wildcard برای دامنه. Remnawave X به جای * یک رشته متنی رندوم جایگذاری خواهد کرد",
     "override-sni-from-address": "بازنویسی SNI از آدرس دامنه",
     "override-sni-from-address-description": "این گزینه مقدار SNI را با آدرس مشخص شده جایگزین خواهد کرد که برای کانفیگ‌های چند دامنه‌ای و wildcard قابل استفاده می‌باشد",
     "shuffled-hosts-hover-card": "هاست‌های به هم زده شده در بالای لیست قرار گرفته و به صورت تصادفی مرتب خواهند شد.",
@@ -354,7 +355,7 @@
     "include-in-srr-rules": "Response rules",
     "include-in-srr-rules-placeholder": "Pick or enter rule names",
     "include-in-srr-rules-description": "Include this host only when the subscription request matches one of the selected response rules. Leave empty to include it for every rule.",
-    "hidden-host-description": "By default, Remnawave will not include hidden hosts in the subscription. Hidden hosts can be used with Mihomo, Xray-Json Advanced, and Raw.",
+    "hidden-host-description": "By default, Remnawave X will not include hidden hosts in the subscription. Hidden hosts can be used with Mihomo, Xray-Json Advanced, and Raw.",
     "server-description-1": "In supported clients, the protocol name (e.g. vless) will be replaced with the description specified here.",
     "server-description-2": "Not all client applications support this feature. For more details, refer to the documentation of the apps listed below.",
     "supported-clients": "Supported clients",
@@ -408,15 +409,15 @@
     "page": {
       "online-stats": "آمار آنلاین شدن کاربرها",
       "bandwidth": "پهنای باند",
-      "remnawave-usage": "مصرف منابع Remnawave",
+      "remnawave-usage": "مصرف منابع Remnawave X",
       "process-details": "مشخصات Process"
     },
     "runtime-info": {
       "title": "Runtime metrics guide",
       "subtitle": "What every number on a runtime card actually means",
-      "intro": "Each card shows a live snapshot of a single <highlight>Remnawave process</highlight>. Use this guide to understand what each metric measures and when to worry about it.",
+      "intro": "Each card shows a live snapshot of a single <highlight>Remnawave X process</highlight>. Use this guide to understand what each metric measures and when to worry about it.",
       "instance-types-title": "Process types",
-      "instance-types-description": "Remnawave is split into several specialized processes. Each one has its own job, its own memory, and its own event loop.",
+      "instance-types-description": "Remnawave X is split into several specialized processes. Each one has its own job, its own memory, and its own event loop.",
       "api-description": "Handles every HTTP request from the dashboard and subscription endpoints. This is the <highlight>main user-facing process</highlight> — virtually every panel and subscription request is served here.",
       "scheduler-description": "A <highlight>cron-driven dispatcher</highlight>. It does not run any work itself — at the scheduled moment it simply pushes a job into the queue for the <highlight>Processor</highlight> to pick up.",
       "processor-description": "The actual <highlight>worker</highlight>. It consumes queued jobs and runs the heavy lifting: <highlight>node health checks</highlight>, <highlight>traffic aggregation</highlight> per user and per node, and other long-running tasks that must not block the API.",
@@ -595,7 +596,7 @@
     "widget": {
       "requirements": "پیش‌نیازها",
       "warning-activity": "An IP address will be shown when <highlight>Xray Core</highlight> considers the <highlight>connection still open</highlight>. As a result, some of the IP addresses shown may no longer be connected. Use the <highlight>clock</highlight> icon to track the last activity of a given IP.",
-      "warning-version": "نود Remnawave نسخه <highlight>{{version}}</highlight> یا بالاتر",
+      "warning-version": "نود Remnawave X نسخه <highlight>{{version}}</highlight> یا بالاتر",
       "warning-docker": "مقادیر زیر را به <highlight>docker-compose.yml</highlight> نود (در /opt/remnanode) اضافه کنید",
       "warning-patience": "دریافت اطلاعات ممکن است زمانبر باشد، این پنجره را نبندید!",
       "warning-n-plus-one": "<highlight>Please note</highlight>: this request performs <highlight>N+1</highlight> calls to the gRPC API of <highlight>Xray Core</highlight> due to the lack of bulk data retrieval methods. <highlight>N</highlight> is the number of users currently online on the given node.",
@@ -784,10 +785,10 @@
       "widget": {
         "please-select-a-provider-and-billing-node": "لطفاً یک ارائه‌دهنده و نود صورتحساب انتخاب کنید",
         "next-billing-at": "صورتحساب بعدی در",
-        "next-billing-at-description": "تاریخ و زمانی که نود صورتحساب بعدی صادر می‌شود. Remnawave شما را مطلع خواهد کرد.",
+        "next-billing-at-description": "تاریخ و زمانی که نود صورتحساب بعدی صادر می‌شود. Remnawave X شما را مطلع خواهد کرد.",
         "existing": "Existing",
         "custom": "Custom",
-        "custom-name-description": "Use a custom name when the node is not managed by Remnawave."
+        "custom-name-description": "Use a custom name when the node is not managed by Remnawave X."
       }
     }
   },
@@ -855,7 +856,9 @@
         "selected": "انتخاب شده",
         "unselected": "انتخاب نشده",
         "edit-internal-squad": "ویرایش اسکواد",
-        "selected-inbounds": "اینباندهای انتخاب شده: {{count}}"
+        "selected-inbounds": "اینباندهای انتخاب شده: {{count}}",
+        "include-qwdtt": "Include qWDTT",
+        "include-qwdtt-description": "Members of this squad get qWDTT in their subscription. This is not an Xray inbound."
       }
     }
   },
@@ -905,7 +908,7 @@
   "disclaimer-overlay": {
     "title": "Disclaimer",
     "subtitle": "Please read this notice before you continue.",
-    "intro": "Remnawave is an <highlight>open-source, self-hosted</highlight> proxy and user-management tool. It is provided <warning>\"as is\", without any warranty</warning> of any kind, express or implied.",
+    "intro": "Remnawave X is an <highlight>open-source, self-hosted</highlight> proxy and user-management tool. It is provided <warning>\"as is\", without any warranty</warning> of any kind, express or implied.",
     "responsibility": "You are <highlight>solely responsible</highlight> for how you deploy and use this software.",
     "compliance": "You must comply with <highlight>all laws and regulations</highlight> applicable in your jurisdiction.",
     "liability": "The developers and contributors accept <warning>no liability</warning> for any misuse, damage, or data loss.",
@@ -1092,7 +1095,7 @@
   "create-node-step-3-status": {
     "establishing-mtls-connection": "درحال برقراری اتصال mTLS",
     "xray-core-is-up-and-running": "هسته Xray درحال اجرا می‌باشد!",
-    "remnawave-will-try-to-reconnect-shortly": "به زودی Remnawave برای اتصال مجدد تلاش خواهد کرد",
+    "remnawave-will-try-to-reconnect-shortly": "به زودی Remnawave X برای اتصال مجدد تلاش خواهد کرد",
     "no-errors-so-far": "تا کنون خطایی وجود نداشته است"
   },
   "external-squad-card": {
@@ -1218,7 +1221,7 @@
   },
   "branding-settings-card": {
     "widget": {
-      "customize-your-remnawave-instance": "پنل Remnawave خود را شخصی‌سازی کنید",
+      "customize-your-remnawave-instance": "پنل Remnawave X خود را شخصی‌سازی کنید",
       "branding-settings": "تنظیمات برندینگ",
       "the-title-that-will-be-displayed-on-login-page": "عنوانی که در صفحه ورود نشان داده خواهد شد",
       "brand-name": "اسم برند",
@@ -1438,7 +1441,7 @@
     "tab": {
       "widget": {
         "subscription-page-config": "پیکربندی صفحه اشتراک",
-        "subscription-page-config-description": "شما می‌توانید پیکربندی صفحه اشتراک (صفحه اشتراک Remnawave) را برای این گروه خارجی override کنید.",
+        "subscription-page-config-description": "شما می‌توانید پیکربندی صفحه اشتراک (صفحه اشتراک Remnawave X) را برای این گروه خارجی override کنید.",
         "subpage-config": "تنظیمات صفحه اشتراک",
         "select-config": "کانفیگ را انتخاب کنید..."
       }
@@ -1820,7 +1823,7 @@
     "failed-description": "The node could not complete the GeoCheck.",
     "view-image": "Report",
     "no-image": "No image in the report, open JSON",
-    "requires-node-version": "نیازمند Remnawave Node نسخه {{version}} یا بالاتر"
+    "requires-node-version": "نیازمند Remnawave X Node نسخه {{version}} یا بالاتر"
   },
   "quick-open": {
     "page": {
@@ -1905,5 +1908,103 @@
     "connections-title": "Saved connections",
     "connections-empty": "No saved connections yet",
     "connections-current": "Current"
+  },
+  "qwdtt": {
+    "page": {
+      "component": {
+        "sidecar-egress-title": "Sidecar egress",
+        "sidecar-egress-body": "qWDTT runs as a separate process on assigned nodes. Client traffic leaves the node through the sidecar native NAT, not through Xray. Existing Xray inbounds are unchanged.",
+        "settings": "Settings",
+        "enabled": "Enabled",
+        "auto-maintain-vk-hashes": "Auto-maintain VK hashes",
+        "remark": "Remark",
+        "listen-address": "Listen address",
+        "wireguard-port": "WireGuard port",
+        "dns": "DNS",
+        "listen-raw": "Listen raw",
+        "listen-direct": "Listen direct (optional)",
+        "subscription-host": "Subscription host (fallback)",
+        "subscription-host-description": "Fallback only: used for qWDTT hosts without their own address when the node address is private, and for the single link when no qWDTT hosts exist. For several nodes, create qWDTT hosts under Hosts — each has its own address.",
+        "client-port": "Client port",
+        "workers": "Workers",
+        "vk-hashes": "Pinned / current VK hashes",
+        "vk-hashes-description": "Comma or newline separated. Leave empty when auto-generation is enabled.",
+        "assigned-nodes": "Assigned nodes",
+        "assigned-nodes-description": "Only these nodes receive the sidecar payload.",
+        "remote-wdtt-url": "Remote WDTT URL",
+        "remote-wdtt-url-description": "Optional fallback panel (POST /panel/api/vk/call/create).",
+        "remote-wdtt-cookie": "Remote WDTT cookie",
+        "remote-wdtt-cookie-stored": "Auth is already stored. Fill only to replace it.",
+        "remote-wdtt-cookie-empty": "Session cookie for the fallback panel. Leave empty to keep the stored value.",
+        "remote-wdtt-csrf": "Remote WDTT CSRF token",
+        "save-and-sync": "Save and sync nodes",
+        "reconcile-sidecars": "Reconcile sidecars",
+        "status": "Status",
+        "status-line": "VK cookies stored: {{cookies}}. Env hashes: {{hashes}}. Egress: {{egress}}.",
+        "yes": "yes",
+        "no": "no",
+        "share-link-preview": "Share-link preview (password redacted if empty):",
+        "check-hashes": "Check hashes",
+        "generate-vk-hash": "Generate VK hash",
+        "node": "Node",
+        "state": "State",
+        "details": "Details",
+        "vk-cookies": "VK cookies",
+        "cookies-placeholder": "remixsid=...",
+        "cookies-description": "Paste a remixsid cookie string. After you save, the value stays in this field and is shown again when you reopen the page. Hash priority is pinned env hashes, then these cookies and the VK API, then the optional remote WDTT panel.",
+        "save-cookies": "Save cookies",
+        "check-cookies": "Check cookies",
+        "clear-cookies": "Clear cookies",
+        "cookies-valid": "Cookies are valid",
+        "cookies-check-failed": "Check failed",
+        "user-access": "User access",
+        "username": "Username",
+        "username-placeholder": "existing Remnawave X username",
+        "grant-access": "Grant access",
+        "loading-users": "Loading users…",
+        "user": "User",
+        "traffic": "Traffic",
+        "link": "Link",
+        "copy-qwdtt-link": "Copy qWDTT link",
+        "rotate": "Rotate",
+        "toast-success": "Success",
+        "toast-settings-saved": "qWDTT settings saved",
+        "toast-update-title": "Update qWDTT",
+        "toast-request-failed": "Request failed",
+        "toast-cookies-saved": "VK cookies saved",
+        "toast-save-cookies-title": "Save VK cookies",
+        "toast-cookies-cleared": "VK cookies cleared",
+        "toast-hash-generated": "VK hash generated",
+        "toast-generate-hash-title": "Generate VK hash",
+        "toast-user-updated": "User qWDTT access updated",
+        "toast-update-user-title": "Update qWDTT user",
+        "toast-access-revoked": "qWDTT access revoked",
+        "toast-sidecars-reconciled": "qWDTT sidecars reconciled",
+        "toast-reconcile-title": "Reconcile qWDTT",
+        "none": "none",
+        "not-set": "not set",
+        "resolved-peer": "Resolved peer",
+        "hash-alive": "alive",
+        "hash-dead": "dead",
+        "hash-unknown": "unknown",
+        "binary-missing": "binary missing"
+      }
+    }
+  },
+  "qwdtt-host": {
+    "type-xray": "Xray (inbound)",
+    "type-qwdtt": "qWDTT",
+    "node": "Node (location)",
+    "node-description": "A qWDTT host is bound to one node. The qWDTT sidecar must be assigned to that node.",
+    "address-placeholder": "empty — node address",
+    "address-order": "Subscription peer: this host's address and port. If the address is empty, the node's public address is used (private 10/8, 172.16/12, 192.168/16, 127/8 are skipped). If that is private too, the global qWDTT subscription host is used as a fallback.",
+    "warning-disabled": "qWDTT is disabled in settings — this host will not be in subscriptions.",
+    "warning-node-not-assigned": "The qWDTT sidecar is not assigned to this node (qWDTT settings → Assigned nodes). The host is skipped until it is.",
+    "warning-private-address": "The host address is private or local, clients cannot reach it. Use a public domain or IP, or leave it empty.",
+    "warning-no-peer": "No public address found: the node address is private and the global subscription host is empty. Set the host address, otherwise it is skipped.",
+    "peer-ok": "Subscription peer will be {{peer}} ({{source}}).",
+    "source-host": "host address",
+    "source-node": "node public address",
+    "source-subHost": "global fallback host"
   }
 }

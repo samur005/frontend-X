@@ -12,7 +12,7 @@ export const useUpdateRemnawaveSettings = createMutationHook({
         onSuccess: () => {
             notifications.show({
                 title: 'Success',
-                message: 'Remnawave settings updated successfully',
+                message: 'Remnawave X settings updated successfully',
                 color: 'teal'
             })
         }

@@ -37,6 +37,7 @@ function topLevelKey(path: string): string {
 
 interface IHostOptionsContext {
     activate: (name: string) => void
+    availableFieldCount: number
     inactiveFields: IHostOptionField[]
     isActive: (name: string) => boolean
     isBulkEdit: boolean
@@ -51,11 +52,13 @@ const HostOptionsContext = createContext<IHostOptionsContext | null>(null)
 interface Props {
     children: ReactNode
     form: THostForm
+    hideFields?: string[]
     isBulkEdit?: boolean
 }
 
 export function HostOptionsProvider(props: Props) {
-    const { children, form, isBulkEdit = false } = props
+    const { children, form, hideFields = [], isBulkEdit = false } = props
+    const hidden = useMemo(() => new Set(hideFields), [hideFields])
 
     const [added, setAdded] = useState<Set<string>>(new Set())
     const [justAdded, setJustAdded] = useState<null | string>(null)
@@ -101,6 +104,8 @@ export function HostOptionsProvider(props: Props) {
 
     const isActive = useCallback(
         (name: string) => {
+            if (hidden.has(name)) return false
+
             const field = HOST_OPTION_FIELD_BY_NAME.get(name)
 
             if (!field) return true
@@ -109,7 +114,7 @@ export function HostOptionsProvider(props: Props) {
 
             return field.fields.some((formKey) => touchedKeys[formKey.key])
         },
-        [added, hasValue, touchedKeys]
+        [added, hasValue, hidden, touchedKeys]
     )
 
     const isFilled = useCallback(
@@ -130,6 +135,8 @@ export function HostOptionsProvider(props: Props) {
 
     const activate = useCallback(
         (name: string) => {
+            if (hidden.has(name)) return
+
             const field = HOST_OPTION_FIELD_BY_NAME.get(name)
 
             if (isBulkEdit && field) {
@@ -148,7 +155,7 @@ export function HostOptionsProvider(props: Props) {
             setAdded((current) => new Set(current).add(name))
             setJustAdded(name)
         },
-        [form, isBulkEdit]
+        [form, hidden, isBulkEdit]
     )
 
     useEffect(() => {
@@ -208,13 +215,16 @@ export function HostOptionsProvider(props: Props) {
     )
 
     const inactiveFields = useMemo(
-        () => HOST_OPTION_FIELDS.filter((field) => !isActive(field.name)),
-        [isActive]
+        () => HOST_OPTION_FIELDS.filter((field) => !hidden.has(field.name) && !isActive(field.name)),
+        [hidden, isActive]
     )
+
+    const availableFieldCount = HOST_OPTION_FIELDS.length - hidden.size
 
     const value = useMemo(
         () => ({
             activate,
+            availableFieldCount,
             inactiveFields,
             isActive,
             isBulkEdit,
@@ -223,7 +233,7 @@ export function HostOptionsProvider(props: Props) {
             justAdded,
             remove
         }),
-        [activate, inactiveFields, isActive, isBulkEdit, isFilled, isValueSet, justAdded, remove]
+        [activate, availableFieldCount, inactiveFields, isActive, isBulkEdit, isFilled, isValueSet, justAdded, remove]
     )
 
     return <HostOptionsContext.Provider value={value}>{children}</HostOptionsContext.Provider>

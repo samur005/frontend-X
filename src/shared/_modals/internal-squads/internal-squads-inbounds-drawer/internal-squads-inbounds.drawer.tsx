@@ -4,6 +4,7 @@ import {
     ActionIcon,
     Badge,
     Box,
+    Checkbox,
     CopyButton,
     Drawer,
     Group,
@@ -75,6 +76,7 @@ export const InternalSquadsInboundsDrawer = NiceModal.create((props: IProps) => 
     const [selectedInbounds, setSelectedInbounds] = useState<Set<string>>(
         new Set(internalSquad ? internalSquad.inbounds.map((inbound) => inbound.uuid) : [])
     )
+    const [includeQwdtt, setIncludeQwdtt] = useState(Boolean(internalSquad?.includeQwdtt))
 
     const [openAccordions, setOpenAccordions] = useState<Set<string>>(new Set([]))
     const [activeTab, setActiveTab] = useState<string>('profiles')
@@ -183,7 +185,10 @@ export const InternalSquadsInboundsDrawer = NiceModal.create((props: IProps) => 
         if (internalSquad?.inbounds) {
             setSelectedInbounds(new Set(internalSquad.inbounds.map((inbound) => inbound.uuid)))
         }
-    }, [internalSquad?.inbounds])
+        if (internalSquad) {
+            setIncludeQwdtt(Boolean(internalSquad.includeQwdtt))
+        }
+    }, [internalSquad])
 
     const { mutate: updateInternalSquad, isPending: isUpdatingInternalSquad } =
         useUpdateInternalSquad({
@@ -208,7 +213,8 @@ export const InternalSquadsInboundsDrawer = NiceModal.create((props: IProps) => 
         updateInternalSquad({
             variables: {
                 uuid: internalSquad.uuid,
-                inbounds: Array.from(selectedInbounds)
+                inbounds: Array.from(selectedInbounds),
+                includeQwdtt
             }
         })
     }
@@ -318,7 +324,7 @@ export const InternalSquadsInboundsDrawer = NiceModal.create((props: IProps) => 
 
                             <ActionIcon
                                 color="teal"
-                                disabled={selectedInbounds.size === 0}
+                                disabled={selectedInbounds.size === 0 && !includeQwdtt}
                                 loading={isUpdatingInternalSquad}
                                 onClick={handleUpdateInternalSquad}
                                 size="xl"
@@ -330,6 +336,14 @@ export const InternalSquadsInboundsDrawer = NiceModal.create((props: IProps) => 
                                 <TbDeviceFloppy size={24} />
                             </ActionIcon>
                         </Group>
+                        <Checkbox
+                            checked={includeQwdtt}
+                            description={t(
+                                'internal-squads.drawer.widget.include-qwdtt-description'
+                            )}
+                            label={t('internal-squads.drawer.widget.include-qwdtt')}
+                            onChange={(event) => setIncludeQwdtt(event.currentTarget.checked)}
+                        />
                     </Stack>
                 </Paper>
 

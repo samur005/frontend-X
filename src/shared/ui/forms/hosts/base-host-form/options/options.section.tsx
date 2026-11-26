@@ -18,12 +18,12 @@ import { OptionsEmptyState } from './options-empty-state'
 import classes from './Options.module.css'
 
 export function HostOptionsSection() {
-    const { inactiveFields } = useHostOptions()
+    const { availableFieldCount, inactiveFields } = useHostOptions()
     const { t } = useTranslation()
 
     const headerRef = useDrawerStickyOffset()
 
-    const isEmpty = inactiveFields.length === HOST_OPTION_FIELDS.length
+    const isEmpty = inactiveFields.length === availableFieldCount
 
     return (
         <SectionCard.Root allDividers={false} style={{ overflow: 'visible' }}>

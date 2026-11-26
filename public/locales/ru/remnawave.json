@@ -20,7 +20,8 @@
     "tools": "Инструменты",
     "srh-inspector": "Инспектор SRH",
     "response-rules": "Правила ответов",
-    "remnawave-settings": "Настройки Remnawave",
+    "remnawave-settings": "Настройки Remnawave X",
+    "qwdtt": "qWDTT",
     "node-plugins": "Плагины",
     "quick-open": "Быстрый переход",
     "tb-reports": "Отчёты Torrent Blocker",
@@ -295,7 +296,7 @@
       "subscription-qr-code": "QR-код подписки",
       "edit-user-headline": "Изменить пользователя",
       "subscription-url-description-line-1": "Домен и путь берутся из переменной .env:",
-      "subscription-url-description-line-2": "Чтобы изменить, поправьте .env и перезапустите Remnawave командой:",
+      "subscription-url-description-line-2": "Чтобы изменить, поправьте .env и перезапустите Remnawave X командой:",
       "management": "Управление",
       "danger-zone": "Опасная зона",
       "detailed-info": "Подробности",
@@ -332,9 +333,9 @@
     "single-domain": "Один домен",
     "default-mode-for-one-domain": "Режим по умолчанию для одного домена",
     "multi-domain": "Несколько доменов",
-    "multi-domain-description": "Несколько доменов через запятую. Remnawave будет выбирать один из них случайным образом.",
+    "multi-domain-description": "Несколько доменов через запятую. Remnawave X будет выбирать один из них случайным образом.",
     "wildcard-domain": "Wildcard-домен",
-    "wildcard-domain-description": "Wildcard-шаблон для поддоменов. Remnawave подставит вместо * случайную строку.",
+    "wildcard-domain-description": "Wildcard-шаблон для поддоменов. Remnawave X подставит вместо * случайную строку.",
     "override-sni-from-address": "Брать SNI из адреса",
     "override-sni-from-address-description": "Подставляет в SNI значение поля «Адрес». Особенно полезно для конфигураций с несколькими доменами или wildcard-доменом.",
     "shuffled-hosts-hover-card": "Перемешанные хосты встанут в начало списка и будут отсортированы случайным образом.",
@@ -354,7 +355,7 @@
     "include-in-srr-rules": "Правила ответов",
     "include-in-srr-rules-placeholder": "Выберите или введите имена правил",
     "include-in-srr-rules-description": "Хост попадёт в подписку, только если запрос совпадёт с одним из выбранных правил ответов. Оставьте пустым, чтобы хост отдавался при любом правиле.",
-    "hidden-host-description": "По умолчанию Remnawave не включает скрытые хосты в подписку. Скрытые хосты работают с Mihomo, Xray-Json Advanced и Raw.",
+    "hidden-host-description": "По умолчанию Remnawave X не включает скрытые хосты в подписку. Скрытые хосты работают с Mihomo, Xray-Json Advanced и Raw.",
     "server-description-1": "В поддерживаемых клиентах название протокола (например, vless) заменится на указанное здесь описание.",
     "server-description-2": "Эту возможность поддерживают не все клиенты. Подробности — в документации приложений из списка ниже.",
     "supported-clients": "Поддерживаемые клиенты",
@@ -397,7 +398,7 @@
     "notify-percent": "Уведомлять при %",
     "e-g-50": "напр. 50",
     "consumption-m-line-1": "Применяет выбранный множитель к трафику пользователя (1.0 = обычный, 0.5 = половина, 2.0 = двойной).",
-    "consumption-m-line-2": "Проще говоря: если лимит трафика пользователя 1 ГиБ, а множитель 2.0, реально он потратит только 0.5 ГиБ, но Remnawave покажет расход в 1 ГиБ и пользователь уйдёт в LIMITED.",
+    "consumption-m-line-2": "Проще говоря: если лимит трафика пользователя 1 ГиБ, а множитель 2.0, реально он потратит только 0.5 ГиБ, но Remnawave X покажет расход в 1 ГиБ и пользователь уйдёт в LIMITED.",
     "node-vitals": "Основное",
     "consumption": "Расход",
     "core-configuration": "Конфигурация ядра",
@@ -408,15 +409,15 @@
     "page": {
       "online-stats": "Статистика онлайна",
       "bandwidth": "Трафик",
-      "remnawave-usage": "Нагрузка Remnawave",
+      "remnawave-usage": "Нагрузка Remnawave X",
       "process-details": "Подробности процесса"
     },
     "runtime-info": {
       "title": "Гид по метрикам рантайма",
       "subtitle": "Что на самом деле означает каждое число на карточке процесса",
-      "intro": "Каждая карточка показывает живой срез одного <highlight>процесса Remnawave</highlight>. Этот гид объясняет, что измеряет каждая метрика и когда стоит беспокоиться.",
+      "intro": "Каждая карточка показывает живой срез одного <highlight>процесса Remnawave X</highlight>. Этот гид объясняет, что измеряет каждая метрика и когда стоит беспокоиться.",
       "instance-types-title": "Типы процессов",
-      "instance-types-description": "Remnawave разделён на несколько специализированных процессов. У каждого своя задача, своя память и свой event loop.",
+      "instance-types-description": "Remnawave X разделён на несколько специализированных процессов. У каждого своя задача, своя память и свой event loop.",
       "api-description": "Обрабатывает все HTTP-запросы от дашборда и эндпоинтов подписки. Это <highlight>основной процесс, с которым работают пользователи</highlight> — практически каждый запрос панели и подписки обслуживается здесь.",
       "scheduler-description": "<highlight>Диспетчер по расписанию</highlight>. Сам он ничего не выполняет — в назначенный момент просто кладёт задачу в очередь, откуда её заберёт <highlight>Processor</highlight>.",
       "processor-description": "Собственно <highlight>воркер</highlight>. Разбирает очередь и делает тяжёлую работу: <highlight>проверки состояния нод</highlight>, <highlight>агрегацию трафика</highlight> по пользователям и нодам и другие долгие задачи, которые нельзя вешать на API.",
@@ -595,8 +596,8 @@
     "widget": {
       "requirements": "Требования",
       "warning-activity": "IP-адрес показывается, пока <highlight>Xray Core</highlight> считает <highlight>соединение открытым</highlight>. Из-за этого часть показанных адресов может быть уже отключена. Отслеживайте последнюю активность конкретного IP по иконке <highlight>часов</highlight>.",
-      "warning-version": "Remnawave Node версии <highlight>{{version}}</highlight> или выше",
-      "warning-docker": "Добавьте следующее в <highlight>docker-compose.yml</highlight> ноды Remnawave (/opt/remnanode)",
+      "warning-version": "Remnawave X Node версии <highlight>{{version}}</highlight> или выше",
+      "warning-docker": "Добавьте следующее в <highlight>docker-compose.yml</highlight> ноды Remnawave X (/opt/remnanode)",
       "warning-patience": "Сбор данных может занять время, не закрывайте это окно!",
       "warning-n-plus-one": "<highlight>Обратите внимание</highlight>: запрос делает <highlight>N+1</highlight> обращений к gRPC API <highlight>Xray Core</highlight>, потому что метода для пакетной выдачи там нет. <highlight>N</highlight> — число пользователей, которые сейчас онлайн на этой ноде.",
       "fetching": "Собираем активные сессии...",
@@ -784,10 +785,10 @@
       "widget": {
         "please-select-a-provider-and-billing-node": "Выберите провайдера и биллинговую ноду",
         "next-billing-at": "Следующее списание",
-        "next-billing-at-description": "Дата и время следующего списания по этой ноде. Remnawave напомнит о нём заранее.",
+        "next-billing-at-description": "Дата и время следующего списания по этой ноде. Remnawave X напомнит о нём заранее.",
         "existing": "Существующая",
         "custom": "Своя",
-        "custom-name-description": "Укажите своё название, если нода не управляется Remnawave."
+        "custom-name-description": "Укажите своё название, если нода не управляется Remnawave X."
       }
     }
   },
@@ -855,7 +856,9 @@
         "selected": "Выбранные",
         "unselected": "Невыбранные",
         "edit-internal-squad": "Изменить внутренний сквад",
-        "selected-inbounds": "Выбрано инбаундов: {{count}}"
+        "selected-inbounds": "Выбрано инбаундов: {{count}}",
+        "include-qwdtt": "Добавить qWDTT",
+        "include-qwdtt-description": "Участники сквада получат qWDTT в подписке. Это не инбаунд Xray."
       }
     }
   },
@@ -905,7 +908,7 @@
   "disclaimer-overlay": {
     "title": "Отказ от ответственности",
     "subtitle": "Прочитайте это, прежде чем продолжить.",
-    "intro": "Remnawave — это <highlight>открытый, self-hosted</highlight> инструмент для проксирования и управления пользователями. Он предоставляется <warning>«как есть», без каких-либо гарантий</warning>, явных или подразумеваемых.",
+    "intro": "Remnawave X — это <highlight>открытый, self-hosted</highlight> инструмент для проксирования и управления пользователями. Он предоставляется <warning>«как есть», без каких-либо гарантий</warning>, явных или подразумеваемых.",
     "responsibility": "Вы <highlight>несёте полную ответственность</highlight> за то, как разворачиваете и используете эту программу.",
     "compliance": "Вы обязаны соблюдать <highlight>все законы и нормы</highlight>, действующие в вашей юрисдикции.",
     "liability": "Разработчики и контрибьюторы <warning>не несут ответственности</warning> за неправомерное использование, ущерб или потерю данных.",
@@ -1084,7 +1087,7 @@
   },
   "create-node-step-1-connection": {
     "copy-the": "Скопируйте содержимое",
-    "content-for-the-remnawave-node-below": "для ноды Remnawave ниже.",
+    "content-for-the-remnawave-node-below": "для ноды Remnawave X ниже.",
     "learn-more": "Подробнее.",
     "domain-or-ip": "Домен или IP",
     "additional-options": "Дополнительные настройки"
@@ -1092,7 +1095,7 @@
   "create-node-step-3-status": {
     "establishing-mtls-connection": "Устанавливаем mTLS-соединение...",
     "xray-core-is-up-and-running": "Xray Core запущен и работает!",
-    "remnawave-will-try-to-reconnect-shortly": "Remnawave скоро попробует переподключиться...",
+    "remnawave-will-try-to-reconnect-shortly": "Remnawave X скоро попробует переподключиться...",
     "no-errors-so-far": "Ошибок пока нет"
   },
   "external-squad-card": {
@@ -1218,7 +1221,7 @@
   },
   "branding-settings-card": {
     "widget": {
-      "customize-your-remnawave-instance": "Настройка внешнего вида Remnawave",
+      "customize-your-remnawave-instance": "Настройка внешнего вида Remnawave X",
       "branding-settings": "Настройки брендинга",
       "the-title-that-will-be-displayed-on-login-page": "Заголовок, который будет показан на странице входа",
       "brand-name": "Название бренда",
@@ -1364,7 +1367,7 @@
       "open-svg-library": "Открыть библиотеку SVG",
       "installation-guides-design": "Оформление инструкций по установке"
     },
-    "subpage-config-saved-line-1": "Чтобы изменения применились, перезапустите docker-контейнер Remnawave Subscription-page.",
+    "subpage-config-saved-line-1": "Чтобы изменения применились, перезапустите docker-контейнер Remnawave X Subscription-page.",
     "subpage-config-saved-line-2": "Например, можно выполнить в терминале такую команду:"
   },
   "app-editor-drawer-content": {
@@ -1438,7 +1441,7 @@
     "tab": {
       "widget": {
         "subscription-page-config": "Конфигурация страницы подписки",
-        "subscription-page-config-description": "Для этого внешнего сквада можно переопределить конфигурацию страницы подписки (Remnawave Subscription Page).",
+        "subscription-page-config-description": "Для этого внешнего сквада можно переопределить конфигурацию страницы подписки (Remnawave X Subscription Page).",
         "subpage-config": "Конфигурация страницы",
         "select-config": "Выберите конфигурацию..."
       }
@@ -1820,7 +1823,7 @@
     "failed-description": "Ноде не удалось выполнить GeoCheck.",
     "view-image": "Отчёт",
     "no-image": "В отчёте нет изображения, откройте JSON",
-    "requires-node-version": "Требуется Remnawave Node {{version}} или новее"
+    "requires-node-version": "Требуется Remnawave X Node {{version}} или новее"
   },
   "quick-open": {
     "page": {
@@ -1905,5 +1908,103 @@
     "connections-title": "Сохранённые подключения",
     "connections-empty": "Сохранённых подключений пока нет",
     "connections-current": "Текущее"
+  },
+  "qwdtt": {
+    "page": {
+      "component": {
+        "sidecar-egress-title": "Выход через сайдкар",
+        "sidecar-egress-body": "qWDTT работает отдельным процессом на назначенных нодах. Трафик клиента уходит с ноды через нативный NAT сайдкара, а не через Xray. Существующие инбаунды Xray не меняются.",
+        "settings": "Настройки",
+        "enabled": "Включено",
+        "auto-maintain-vk-hashes": "Автоматически поддерживать VK-хеши",
+        "remark": "Имя в подписке",
+        "listen-address": "Адрес прослушивания",
+        "wireguard-port": "Порт WireGuard",
+        "dns": "DNS",
+        "listen-raw": "Слушать raw",
+        "listen-direct": "Слушать direct (необязательно)",
+        "subscription-host": "Хост в подписке (запасной)",
+        "subscription-host-description": "Используется только как запасной вариант: для qWDTT-хостов без своего адреса, если у ноды частный адрес, и для общей ссылки, когда qWDTT-хостов нет. Для нескольких нод создайте qWDTT-хосты в разделе «Хосты» — у каждого будет свой адрес.",
+        "client-port": "Порт клиента",
+        "workers": "Воркеры",
+        "vk-hashes": "Зафиксированные / текущие VK-хеши",
+        "vk-hashes-description": "Через запятую или с новой строки. Оставьте пустым, если включена автогенерация.",
+        "assigned-nodes": "Назначенные ноды",
+        "assigned-nodes-description": "Сайдкар получает конфигурацию только на этих нодах.",
+        "remote-wdtt-url": "URL удалённой панели WDTT",
+        "remote-wdtt-url-description": "Необязательная запасная панель (POST /panel/api/vk/call/create).",
+        "remote-wdtt-cookie": "Cookie удалённой панели WDTT",
+        "remote-wdtt-cookie-stored": "Авторизация уже сохранена. Заполните поле, только если нужно заменить её.",
+        "remote-wdtt-cookie-empty": "Сессионная cookie запасной панели. Оставьте пустым, чтобы сохранить текущее значение.",
+        "remote-wdtt-csrf": "CSRF-токен удалённой панели WDTT",
+        "save-and-sync": "Сохранить и синхронизировать ноды",
+        "reconcile-sidecars": "Пересинхронизировать сайдкары",
+        "status": "Статус",
+        "status-line": "VK cookies сохранены: {{cookies}}. Хеши из окружения: {{hashes}}. Выход: {{egress}}.",
+        "yes": "да",
+        "no": "нет",
+        "share-link-preview": "Предпросмотр ссылки (пароль скрыт, если пустой):",
+        "check-hashes": "Проверить хеши",
+        "generate-vk-hash": "Сгенерировать VK-хеш",
+        "node": "Нода",
+        "state": "Состояние",
+        "details": "Подробности",
+        "vk-cookies": "VK cookies",
+        "cookies-placeholder": "remixsid=...",
+        "cookies-description": "Вставьте строку cookie remixsid. После сохранения значение остаётся в поле и снова показывается при повторном открытии страницы. Приоритет хешей: зафиксированные хеши из окружения, затем эти cookies и VK API, затем необязательная удалённая панель WDTT.",
+        "save-cookies": "Сохранить cookies",
+        "check-cookies": "Проверить cookies",
+        "clear-cookies": "Очистить cookies",
+        "cookies-valid": "Cookies действительны",
+        "cookies-check-failed": "Проверка не удалась",
+        "user-access": "Доступ пользователей",
+        "username": "Имя пользователя",
+        "username-placeholder": "существующий пользователь Remnawave X",
+        "grant-access": "Выдать доступ",
+        "loading-users": "Загрузка пользователей…",
+        "user": "Пользователь",
+        "traffic": "Трафик",
+        "link": "Ссылка",
+        "copy-qwdtt-link": "Скопировать ссылку qWDTT",
+        "rotate": "Сменить пароль",
+        "toast-success": "Готово",
+        "toast-settings-saved": "Настройки qWDTT сохранены",
+        "toast-update-title": "Обновление qWDTT",
+        "toast-request-failed": "Запрос не выполнен",
+        "toast-cookies-saved": "VK cookies сохранены",
+        "toast-save-cookies-title": "Сохранение VK cookies",
+        "toast-cookies-cleared": "VK cookies удалены",
+        "toast-hash-generated": "VK-хеш сгенерирован",
+        "toast-generate-hash-title": "Генерация VK-хеша",
+        "toast-user-updated": "Доступ пользователя к qWDTT обновлён",
+        "toast-update-user-title": "Обновление доступа qWDTT",
+        "toast-access-revoked": "Доступ к qWDTT отозван",
+        "toast-sidecars-reconciled": "Сайдкары qWDTT пересинхронизированы",
+        "toast-reconcile-title": "Синхронизация qWDTT",
+        "none": "нет",
+        "not-set": "не задан",
+        "resolved-peer": "Вычисленный пир",
+        "hash-alive": "живой",
+        "hash-dead": "мёртвый",
+        "hash-unknown": "неизвестно",
+        "binary-missing": "бинарник не найден"
+      }
+    }
+  },
+  "qwdtt-host": {
+    "type-xray": "Xray (инбаунд)",
+    "type-qwdtt": "qWDTT",
+    "node": "Нода (локация)",
+    "node-description": "qWDTT-хост привязан к одной ноде. На ней должен быть назначен сайдкар qWDTT.",
+    "address-placeholder": "пусто — адрес ноды",
+    "address-order": "Peer в подписке: адрес и порт этого хоста. Если адрес пустой — публичный адрес ноды (частные 10/8, 172.16/12, 192.168/16, 127/8 не используются). Если и он частный — глобальный «Хост в подписке» из настроек qWDTT как запасной вариант.",
+    "warning-disabled": "qWDTT выключен в настройках — хост не попадёт в подписку.",
+    "warning-node-not-assigned": "На этой ноде не назначен сайдкар qWDTT (Настройки qWDTT → «Назначенные ноды»). Хост не попадёт в подписку, пока ноду не назначат.",
+    "warning-private-address": "Адрес хоста частный или локальный — такой peer недоступен клиентам. Укажите публичный домен или IP, либо оставьте поле пустым.",
+    "warning-no-peer": "Не найден публичный адрес: у ноды частный адрес, а глобальный «Хост в подписке» не задан. Укажите адрес хоста — иначе он не попадёт в подписку.",
+    "peer-ok": "В подписке будет peer {{peer}} ({{source}}).",
+    "source-host": "адрес хоста",
+    "source-node": "публичный адрес ноды",
+    "source-subHost": "запасной глобальный хост"
   }
 }

@@ -1,5 +1,6 @@
 import { ActionIcon, Badge, Checkbox, Group, Text } from '@mantine/core'
 import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { PiTag, PiUsers } from 'react-icons/pi'
 import { TbEdit } from 'react-icons/tb'
 
@@ -11,6 +12,7 @@ import { IProps } from './interfaces'
 
 export const InternalSquadCheckboxCard = memo((props: IProps) => {
     const { internalSquad, hideEditButton } = props
+    const { t } = useTranslation()
 
     const handleOpenEditModal = (squadUuid: string) => {
         showModal('internalSquads_internalSquadsInboundsDrawer', {
@@ -52,6 +54,11 @@ export const InternalSquadCheckboxCard = memo((props: IProps) => {
                     <Badge color="blue" leftSection={<PiTag size="16" />} size="md" variant="light">
                         {internalSquad.info.inboundsCount}
                     </Badge>
+                    {internalSquad.includeQwdtt ? (
+                        <Badge color="violet" size="md" variant="light">
+                            {t('constants.qwdtt')}
+                        </Badge>
+                    ) : null}
                     {!hideEditButton && (
                         <ActionIcon
                             color="cyan"

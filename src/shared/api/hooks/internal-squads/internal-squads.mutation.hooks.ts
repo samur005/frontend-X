@@ -9,12 +9,18 @@ import {
     UpdateInternalSquadCommand
 } from '@remnawave/backend-contract'
 
+import {
+    CreateInternalSquadRequestBodySchema,
+    CreateInternalSquadResponseSchema,
+    UpdateInternalSquadRequestBodySchema,
+    UpdateInternalSquadResponseSchema
+} from '../../internal-squads-contract'
 import { createMutationHook } from '../../tsq-helpers'
 
 export const useUpdateInternalSquad = createMutationHook({
     endpoint: UpdateInternalSquadCommand.TSQ_url,
-    bodySchema: UpdateInternalSquadCommand.RequestBodySchema,
-    responseSchema: UpdateInternalSquadCommand.ResponseSchema,
+    bodySchema: UpdateInternalSquadRequestBodySchema,
+    responseSchema: UpdateInternalSquadResponseSchema,
     requestMethod: UpdateInternalSquadCommand.endpointDetails.REQUEST_METHOD,
     rMutationParams: {
         onSuccess: () => {
@@ -60,8 +66,8 @@ export const useDeleteInternalSquad = createMutationHook({
 
 export const useCreateInternalSquad = createMutationHook({
     endpoint: CreateInternalSquadCommand.TSQ_url,
-    responseSchema: CreateInternalSquadCommand.ResponseSchema,
-    bodySchema: CreateInternalSquadCommand.RequestBodySchema,
+    responseSchema: CreateInternalSquadResponseSchema,
+    bodySchema: CreateInternalSquadRequestBodySchema,
     requestMethod: CreateInternalSquadCommand.endpointDetails.REQUEST_METHOD,
     rMutationParams: {
         onSuccess: () => {

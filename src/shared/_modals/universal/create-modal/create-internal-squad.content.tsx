@@ -1,4 +1,5 @@
-import { Stack, TextInput, Group, Button } from '@mantine/core'
+import { Stack, TextInput, Group, Button, Checkbox } from '@mantine/core'
+import { useState } from 'react'
 import { useField } from '@mantine/form'
 import { CreateInternalSquadCommand } from '@remnawave/backend-contract'
 import { t } from 'i18next'
@@ -20,6 +21,8 @@ export const CreateInternalSquadContent = (props: IProps) => {
             queryKey: QueryKeys.internalSquads.getInternalSquads.queryKey
         })
     }
+
+    const [includeQwdtt, setIncludeQwdtt] = useState(false)
 
     const nameField = useField<CreateInternalSquadCommand.RequestBody['name']>({
         initialValue: '',
@@ -56,7 +59,8 @@ export const CreateInternalSquadContent = (props: IProps) => {
                 createInternalSquad({
                     variables: {
                         name: nameField.getValue(),
-                        inbounds: []
+                        inbounds: [],
+                        includeQwdtt
                     }
                 })
             }}
@@ -68,6 +72,12 @@ export const CreateInternalSquadContent = (props: IProps) => {
                     placeholder={t('internal-squad-header-action-buttons.feature.enter-squad-name')}
                     required
                     {...nameField.getInputProps()}
+                />
+                <Checkbox
+                    checked={includeQwdtt}
+                    description={t('internal-squads.drawer.widget.include-qwdtt-description')}
+                    label={t('internal-squads.drawer.widget.include-qwdtt')}
+                    onChange={(event) => setIncludeQwdtt(event.currentTarget.checked)}
                 />
                 <Group justify="flex-end">
                     <Button color="gray" onClick={onClose} variant="soft">

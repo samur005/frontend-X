@@ -15,6 +15,7 @@ import { NodesMetricsPageConnector } from '@pages/dashboard/nodes-metrics/ui/con
 import { NodesPageConnector } from '@pages/dashboard/nodes/ui/connectors'
 import { OpenEntityPage } from '@pages/dashboard/open-entity'
 import { QuickOpenPage } from '@pages/dashboard/quick-open'
+import { QwdttPageConnector } from '@pages/dashboard/qwdtt/connectors'
 import { RemnawaveSettingsConnector } from '@pages/dashboard/remnawave-settings/connectors'
 import { ResponseRulesPageConnector } from '@pages/dashboard/response-rules/connectors/response-rules.page.connector'
 import { SessionsExplorerPageConnector } from '@pages/dashboard/sessions-explorer/ui/connectors/sessions-explorer.page.connector'
@@ -116,6 +117,10 @@ const router = createBrowserRouter(
                         <Route
                             element={<RemnawaveSettingsConnector />}
                             path={ROUTES.DASHBOARD.MANAGEMENT.REMNAWAVE_SETTINGS}
+                        />
+                        <Route
+                            element={<QwdttPageConnector />}
+                            path={ROUTES.DASHBOARD.MANAGEMENT.QWDTT}
                         />
 
                         <Route path={ROUTES.DASHBOARD.MANAGEMENT.NODE_PLUGINS.ROOT}>
