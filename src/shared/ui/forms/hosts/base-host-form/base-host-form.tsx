@@ -302,7 +302,7 @@ export const BaseHostForm = <
     return (
         <form onSubmit={handleSubmit}>
             <HostFormDataProvider value={hostFormData}>
-                <HostOptionsProvider form={form} hideFields={isQwdtt && !isBulkEdit ? ['nodes'] : []} isBulkEdit={isBulkEdit}>
+                <HostOptionsProvider form={form} hideFields={isQwdtt ? ['nodes'] : []} isBulkEdit={isBulkEdit}>
                     <Stack>
                         <SectionCard.Root>
                             <SectionCard.Section>
@@ -318,19 +318,17 @@ export const BaseHostForm = <
                                         required={!removeRequiredFields}
                                     />
 
-                                    {!isBulkEdit && (
-                                        <SegmentedControl
-                                            data={[
-                                                { label: t('qwdtt-host.type-xray'), value: 'xray' },
-                                                { label: t('qwdtt-host.type-qwdtt'), value: 'qwdtt' }
-                                            ]}
-                                            fullWidth
-                                            onChange={switchHostType}
-                                            value={isQwdtt ? 'qwdtt' : 'xray'}
-                                        />
-                                    )}
+                                    <SegmentedControl
+                                        data={[
+                                            { label: t('qwdtt-host.type-xray'), value: 'xray' },
+                                            { label: t('qwdtt-host.type-qwdtt'), value: 'qwdtt' }
+                                        ]}
+                                        fullWidth
+                                        onChange={switchHostType}
+                                        value={isQwdtt ? 'qwdtt' : 'xray'}
+                                    />
 
-                                    {isQwdtt && !isBulkEdit && (
+                                    {isQwdtt && (
                                         <QwdttHostSection
                                             address={qwdttAddress}
                                             error={form.errors.nodes ?? null}
@@ -341,7 +339,7 @@ export const BaseHostForm = <
                                         />
                                     )}
 
-                                    <Stack gap="xs" display={isQwdtt && !isBulkEdit ? 'none' : undefined}>
+                                    <Stack gap="xs" display={isQwdtt ? 'none' : undefined}>
                                         <HostSelectInboundFeature
                                             activeConfigProfileInbound={
                                                 form.getValues().inbound

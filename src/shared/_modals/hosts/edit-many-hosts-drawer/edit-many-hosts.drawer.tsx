@@ -22,6 +22,7 @@ import {
 import { LoadingScreen } from '@shared/ui'
 import { BaseHostForm } from '@shared/ui/forms/hosts/base-host-form'
 import { BaseOverlayHeader } from '@shared/ui/overlays/base-overlay-header'
+import { isPrivateOrLocalPeerHost } from '@shared/api/hosts-contract'
 import { parseJsonField } from '@shared/utils/misc'
 
 interface IProps {
@@ -122,6 +123,44 @@ export const EditManyHostsDrawer = NiceModal.create((props: IProps) => {
         }
         if (form.isDirty('finalMask')) {
             dirtyValues.finalMask = parseJsonField(values.finalMask)
+        }
+
+        const nextIsQwdtt =
+            dirtyValues.isQwdtt !== undefined ? Boolean(dirtyValues.isQwdtt) : Boolean(values.isQwdtt)
+
+        if (dirtyValues.isQwdtt === true || (dirtyValues.isQwdtt === undefined && nextIsQwdtt)) {
+            const nextNodes = (dirtyValues.nodes ?? values.nodes) as string[] | undefined
+            if (!nextNodes || nextNodes.length !== 1) {
+                notifications.show({
+                    title: t('common.message.error'),
+                    message: t('qwdtt-host.node-required'),
+                    color: 'red'
+                })
+                return
+            }
+            const address = String(dirtyValues.address ?? values.address ?? '').trim()
+            if (address && isPrivateOrLocalPeerHost(address)) {
+                notifications.show({
+                    title: t('common.message.error'),
+                    message: t('qwdtt-host.warning-private-address'),
+                    color: 'red'
+                })
+                return
+            }
+        }
+
+        if (dirtyValues.isQwdtt === false) {
+            const inbound = (dirtyValues.inbound ?? values.inbound) as
+                | { configProfileInboundUuid?: string; configProfileUuid?: string }
+                | undefined
+            if (!inbound?.configProfileUuid || !inbound?.configProfileInboundUuid) {
+                notifications.show({
+                    title: t('common.message.error'),
+                    message: t('create-host-modal.widget.please-select-the-config-profile-and-inbound'),
+                    color: 'red'
+                })
+                return
+            }
         }
 
         const changedKeys = Object.keys(dirtyValues)
