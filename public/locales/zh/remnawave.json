@@ -2005,6 +2005,7 @@
     "peer-ok": "Subscription peer will be {{peer}} ({{source}}).",
     "source-host": "host address",
     "source-node": "node public address",
-    "source-subHost": "global fallback host"
+    "source-subHost": "global fallback host",
+    "node-required": "qWDTT 主机必须恰好绑定一个节点（位置）。"
   }
 }
