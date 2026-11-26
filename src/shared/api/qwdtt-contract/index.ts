@@ -18,6 +18,7 @@ export const QwdttSettingsSchema = z.object({
     nodeUuids: z.array(z.uuid()),
     remoteWdttUrl: z.string(),
     hasRemoteWdttAuth: z.boolean(),
+    vkCookies: z.string(),
 });
 
 export const QwdttStatusSchema = z.object({

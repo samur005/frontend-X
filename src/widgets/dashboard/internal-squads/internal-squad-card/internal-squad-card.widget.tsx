@@ -21,7 +21,9 @@ interface IProps {
     handleAddToUsers: (internalSquadUuid: string, internalSquadName: string) => void
     handleDeleteInternalSquad: (internalSquadUuid: string, internalSquadName: string) => void
     handleRemoveFromUsers: (internalSquadUuid: string, internalSquadName: string) => void
-    internalSquad: GetInternalSquadsCommand.Response['response']['internalSquads'][number]
+    internalSquad: GetInternalSquadsCommand.Response['response']['internalSquads'][number] & {
+        includeQwdtt?: boolean
+    }
     isDragOverlay?: boolean
 }
 
@@ -88,6 +90,13 @@ export function InternalSquadCardWidget(props: IProps) {
                                         })}
                                     </Badge>
                                 </Tooltip>
+                                {internalSquad.includeQwdtt ? (
+                                    <Tooltip label={t('internal-squads.drawer.widget.include-qwdtt')}>
+                                        <Badge color="violet" size="lg" variant="soft">
+                                            {t('constants.qwdtt')}
+                                        </Badge>
+                                    </Tooltip>
+                                ) : null}
                             </Group>
                         }
                         title={internalSquad.name}

@@ -1,5 +1,6 @@
 import { Badge, Card, Group, Text } from '@mantine/core'
 import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { PiTag, PiUsers } from 'react-icons/pi'
 import { TbCirclesRelation } from 'react-icons/tb'
 
@@ -11,6 +12,7 @@ import { IProps } from './interfaces'
 
 export const InternalSquadCardShared = memo((props: IProps) => {
     const { internalSquad } = props
+    const { t } = useTranslation()
 
     const handleOpenEditModal = (squadUuid: string) => {
         showModal('internalSquads_internalSquadsInboundsDrawer', {
@@ -51,6 +53,11 @@ export const InternalSquadCardShared = memo((props: IProps) => {
                     <Badge color="blue" leftSection={<PiTag size="16" />} size="md" variant="light">
                         {internalSquad.info.inboundsCount}
                     </Badge>
+                    {internalSquad.includeQwdtt ? (
+                        <Badge color="violet" size="md" variant="light">
+                            {t('constants.qwdtt')}
+                        </Badge>
+                    ) : null}
                 </Group>
             </Group>
         </Card>

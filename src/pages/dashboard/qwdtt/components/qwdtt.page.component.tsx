@@ -85,7 +85,7 @@ export const QwdttPageComponent = () => {
 
     return (
         <QwdttPageForm
-            key={`${view.config.vkHashes}|${String(view.config.enabled)}|${String(view.status.hasCookies)}`}
+            key={`${view.config.vkHashes}|${String(view.config.enabled)}`}
             hashChecks={hashChecks}
             nodeStatus={nodeStatus}
             nodes={nodes}
@@ -136,7 +136,7 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
     const [remoteWdttUrl, setRemoteWdttUrl] = useState(view.config.remoteWdttUrl);
     const [remoteWdttCookie, setRemoteWdttCookie] = useState('');
     const [remoteWdttCsrfToken, setRemoteWdttCsrfToken] = useState('');
-    const [cookies, setCookies] = useState('');
+    const [cookies, setCookies] = useState(view.config.vkCookies || '');
     const [cookieCheck, setCookieCheck] = useState<string>('');
     const [username, setUsername] = useState('');
 
@@ -182,81 +182,79 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
         <Page title={t('constants.qwdtt')}>
             <PageHeaderShared icon={<TbHash size={24} />} title={t('constants.qwdtt')} />
             <Stack gap="md">
-                <Alert color="blue" title="Sidecar egress">
-                    qWDTT runs as a separate process on assigned nodes. Client traffic leaves the
-                    node through the sidecar native NAT, not through Xray. Existing Xray inbounds
-                    are unchanged.
+                <Alert color="blue" title={t('qwdtt.page.component.sidecar-egress-title')}>
+                    {t('qwdtt.page.component.sidecar-egress-body')}
                 </Alert>
 
                 <Card padding="lg" radius="md" withBorder>
                     <Stack gap="sm">
                         <Group justify="space-between">
-                            <Title order={4}>Settings</Title>
+                            <Title order={4}>{t('qwdtt.page.component.settings')}</Title>
                             <Group>
                                 <Switch
                                     checked={enabled}
-                                    label="Enabled"
+                                    label={t('qwdtt.page.component.enabled')}
                                     onChange={(event) => setEnabled(event.currentTarget.checked)}
                                 />
                                 <Switch
                                     checked={autoVkHash}
-                                    label="Auto-maintain VK hashes"
+                                    label={t('qwdtt.page.component.auto-maintain-vk-hashes')}
                                     onChange={(event) => setAutoVkHash(event.currentTarget.checked)}
                                 />
                             </Group>
                         </Group>
                         <TextInput
-                            label="Remark"
+                            label={t('qwdtt.page.component.remark')}
                             onChange={(event) => setRemark(event.currentTarget.value)}
                             value={remark}
                         />
                         <Group grow>
                             <TextInput
-                                label="Listen address"
+                                label={t('qwdtt.page.component.listen-address')}
                                 onChange={(event) => setListenAddr(event.currentTarget.value)}
                                 value={listenAddr}
                             />
                             <NumberInput
-                                label="WireGuard port"
+                                label={t('qwdtt.page.component.wireguard-port')}
                                 min={1}
                                 max={65535}
                                 onChange={(value) => setWgPort(Number(value) || 0)}
                                 value={wgPort}
                             />
                             <TextInput
-                                label="DNS"
+                                label={t('qwdtt.page.component.dns')}
                                 onChange={(event) => setDns(event.currentTarget.value)}
                                 value={dns}
                             />
                         </Group>
                         <Group grow>
                             <TextInput
-                                label="Listen raw"
+                                label={t('qwdtt.page.component.listen-raw')}
                                 onChange={(event) => setListenRaw(event.currentTarget.value)}
                                 value={listenRaw}
                             />
                             <TextInput
-                                label="Listen direct (optional)"
+                                label={t('qwdtt.page.component.listen-direct')}
                                 onChange={(event) => setListenDirect(event.currentTarget.value)}
                                 value={listenDirect}
                             />
                         </Group>
                         <Group grow>
                             <TextInput
-                                description="Peer host used in qwdtt:// links. Falls back to the first assigned node address."
-                                label="Subscription host"
+                                description={t('qwdtt.page.component.subscription-host-description')}
+                                label={t('qwdtt.page.component.subscription-host')}
                                 onChange={(event) => setSubHost(event.currentTarget.value)}
                                 value={subHost}
                             />
                             <NumberInput
-                                label="Client port"
+                                label={t('qwdtt.page.component.client-port')}
                                 min={1}
                                 max={65535}
                                 onChange={(value) => setClientPort(Number(value) || 0)}
                                 value={clientPort}
                             />
                             <NumberInput
-                                label="Workers"
+                                label={t('qwdtt.page.component.workers')}
                                 min={1}
                                 onChange={(value) => setWorkers(Number(value) || 1)}
                                 value={workers}
@@ -264,23 +262,23 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                         </Group>
                         <Textarea
                             autosize
-                            description="Comma or newline separated. Leave empty when auto-generation is enabled."
-                            label="Pinned / current VK hashes"
+                            description={t('qwdtt.page.component.vk-hashes-description')}
+                            label={t('qwdtt.page.component.vk-hashes')}
                             minRows={2}
                             onChange={(event) => setVkHashes(event.currentTarget.value)}
                             value={vkHashes}
                         />
                         <MultiSelect
                             data={nodeOptions}
-                            description="Only these nodes receive the sidecar payload."
-                            label="Assigned nodes"
+                            description={t('qwdtt.page.component.assigned-nodes-description')}
+                            label={t('qwdtt.page.component.assigned-nodes')}
                             onChange={setNodeUuids}
                             searchable
                             value={nodeUuids}
                         />
                         <TextInput
-                            description="Optional fallback panel (POST /panel/api/vk/call/create)."
-                            label="Remote WDTT URL"
+                            description={t('qwdtt.page.component.remote-wdtt-url-description')}
+                            label={t('qwdtt.page.component.remote-wdtt-url')}
                             onChange={(event) => setRemoteWdttUrl(event.currentTarget.value)}
                             value={remoteWdttUrl}
                         />
@@ -288,15 +286,15 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                             <TextInput
                                 description={
                                     view.config.hasRemoteWdttAuth
-                                        ? 'Auth is already stored. Fill only to replace it.'
-                                        : 'Session cookie for the fallback panel. Never shown back.'
+                                        ? t('qwdtt.page.component.remote-wdtt-cookie-stored')
+                                        : t('qwdtt.page.component.remote-wdtt-cookie-empty')
                                 }
-                                label="Remote WDTT cookie"
+                                label={t('qwdtt.page.component.remote-wdtt-cookie')}
                                 onChange={(event) => setRemoteWdttCookie(event.currentTarget.value)}
                                 value={remoteWdttCookie}
                             />
                             <TextInput
-                                label="Remote WDTT CSRF token"
+                                label={t('qwdtt.page.component.remote-wdtt-csrf')}
                                 onChange={(event) =>
                                     setRemoteWdttCsrfToken(event.currentTarget.value)
                                 }
@@ -305,14 +303,14 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                         </Group>
                         <Group>
                             <Button loading={isSaving} onClick={() => void handleSave()}>
-                                Save and sync nodes
+                                {t('qwdtt.page.component.save-and-sync')}
                             </Button>
                             <Button
                                 loading={isRestarting}
                                 onClick={() => void restartQwdtt({}).then(() => invalidate())}
                                 variant="light"
                             >
-                                Reconcile sidecars
+                                {t('qwdtt.page.component.reconcile-sidecars')}
                             </Button>
                         </Group>
                     </Stack>
@@ -321,17 +319,25 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                 <Card padding="lg" radius="md" withBorder>
                     <Stack gap="sm">
                         <Group justify="space-between">
-                            <Title order={4}>Status</Title>
-                            <Badge variant="light">{view.status.hashSource || 'none'}</Badge>
+                            <Title order={4}>{t('qwdtt.page.component.status')}</Title>
+                            <Badge variant="light">{view.status.hashSource || t('qwdtt.page.component.none')}</Badge>
                         </Group>
                         <Text size="sm">
-                            Resolved peer: <Code>{view.status.resolvedHost || 'not set'}</Code>
+                            {t('qwdtt.page.component.resolved-peer')}:{' '}
+                            <Code>{view.status.resolvedHost || t('qwdtt.page.component.not-set')}</Code>
                         </Text>
                         <Text size="sm">
-                            VK cookies stored: {view.status.hasCookies ? 'yes' : 'no'}. Env hashes:{' '}
-                            {view.status.hashEnv ? 'yes' : 'no'}. Egress: {view.status.egress}.
+                            {t('qwdtt.page.component.status-line', {
+                                cookies: view.status.hasCookies
+                                    ? t('qwdtt.page.component.yes')
+                                    : t('qwdtt.page.component.no'),
+                                hashes: view.status.hashEnv
+                                    ? t('qwdtt.page.component.yes')
+                                    : t('qwdtt.page.component.no'),
+                                egress: view.status.egress,
+                            })}
                         </Text>
-                        <Text size="sm">Share-link preview (password redacted if empty):</Text>
+                        <Text size="sm">{t('qwdtt.page.component.share-link-preview')}</Text>
                         <Code block>{view.linkPreview || '—'}</Code>
                         <Group>
                             <Button
@@ -339,7 +345,7 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                                 onClick={() => void onRefetchHashes()}
                                 variant="light"
                             >
-                                Check hashes
+                                {t('qwdtt.page.component.check-hashes')}
                             </Button>
                             <Button
                                 loading={isGeneratingHash}
@@ -349,7 +355,7 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                                     }).then(() => invalidate())
                                 }
                             >
-                                Generate VK hash
+                                {t('qwdtt.page.component.generate-vk-hash')}
                             </Button>
                         </Group>
                         {(hashChecks ?? []).length > 0 && (
@@ -366,10 +372,10 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                                             }
                                         >
                                             {item.alive === true
-                                                ? 'alive'
+                                                ? t('qwdtt.page.component.hash-alive')
                                                 : item.alive === false
-                                                  ? 'dead'
-                                                  : 'unknown'}
+                                                  ? t('qwdtt.page.component.hash-dead')
+                                                  : t('qwdtt.page.component.hash-unknown')}
                                         </Badge>
                                         <Code>{item.hash}</Code>
                                         {item.error && (
@@ -385,9 +391,9 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                             <Table highlightOnHover withTableBorder>
                                 <Table.Thead>
                                     <Table.Tr>
-                                        <Table.Th>Node</Table.Th>
-                                        <Table.Th>State</Table.Th>
-                                        <Table.Th>Details</Table.Th>
+                                        <Table.Th>{t('qwdtt.page.component.node')}</Table.Th>
+                                        <Table.Th>{t('qwdtt.page.component.state')}</Table.Th>
+                                        <Table.Th>{t('qwdtt.page.component.details')}</Table.Th>
                                     </Table.Tr>
                                 </Table.Thead>
                                 <Table.Tbody>
@@ -405,7 +411,7 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                                                 {item.error ||
                                                     [
                                                         item.binaryFound === false
-                                                            ? 'binary missing'
+                                                            ? t('qwdtt.page.component.binary-missing')
                                                             : null,
                                                         item.egress,
                                                         item.pid ? `pid ${item.pid}` : null,
@@ -423,17 +429,15 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
 
                 <Card padding="lg" radius="md" withBorder>
                     <Stack gap="sm">
-                        <Title order={4}>VK cookies</Title>
+                        <Title order={4}>{t('qwdtt.page.component.vk-cookies')}</Title>
                         <Text c="dimmed" size="sm">
-                            Paste a remixsid cookie string. The backend never returns the raw
-                            values. Priority is pinned env hashes, then these cookies + VK API, then
-                            the optional remote WDTT panel.
+                            {t('qwdtt.page.component.cookies-description')}
                         </Text>
                         <Textarea
                             autosize
                             minRows={3}
                             onChange={(event) => setCookies(event.currentTarget.value)}
-                            placeholder="remixsid=..."
+                            placeholder={t('qwdtt.page.component.cookies-placeholder')}
                             value={cookies}
                         />
                         <Group>
@@ -449,7 +453,7 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                                     })
                                 }
                             >
-                                Save cookies
+                                {t('qwdtt.page.component.save-cookies')}
                             </Button>
                             <Button
                                 loading={isCheckingCookies}
@@ -457,22 +461,23 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                                     void checkCookies({}).then((result) => {
                                         setCookieCheck(
                                             result?.ok
-                                                ? 'Cookies are valid'
-                                                : result?.error || 'Check failed',
+                                                ? t('qwdtt.page.component.cookies-valid')
+                                                : result?.error ||
+                                                  t('qwdtt.page.component.cookies-check-failed'),
                                         );
                                     })
                                 }
                                 variant="light"
                             >
-                                Check cookies
+                                {t('qwdtt.page.component.check-cookies')}
                             </Button>
                             <Button
                                 color="red"
                                 loading={isClearingCookies}
-                                onClick={() => void clearCookies({}).then(() => invalidate())}
+                                onClick={() => void clearCookies({}).then(() => { setCookies(''); return invalidate(); })}
                                 variant="subtle"
                             >
-                                Clear cookies
+                                {t('qwdtt.page.component.clear-cookies')}
                             </Button>
                         </Group>
                         {cookieCheck && <Text size="sm">{cookieCheck}</Text>}
@@ -481,12 +486,12 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
 
                 <Card padding="lg" radius="md" withBorder>
                     <Stack gap="sm">
-                        <Title order={4}>User access</Title>
+                        <Title order={4}>{t('qwdtt.page.component.user-access')}</Title>
                         <Group align="flex-end">
                             <TextInput
-                                label="Username"
+                                label={t('qwdtt.page.component.username')}
                                 onChange={(event) => setUsername(event.currentTarget.value)}
-                                placeholder="existing Remnawave username"
+                                placeholder={t('qwdtt.page.component.username-placeholder')}
                                 value={username}
                             />
                             <Button
@@ -501,19 +506,19 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                                     })
                                 }
                             >
-                                Grant access
+                                {t('qwdtt.page.component.grant-access')}
                             </Button>
                         </Group>
                         {usersLoading ? (
-                            <Text size="sm">Loading users…</Text>
+                            <Text size="sm">{t('qwdtt.page.component.loading-users')}</Text>
                         ) : (
                             <Table highlightOnHover withTableBorder>
                                 <Table.Thead>
                                     <Table.Tr>
-                                        <Table.Th>User</Table.Th>
-                                        <Table.Th>Status</Table.Th>
-                                        <Table.Th>Traffic</Table.Th>
-                                        <Table.Th>Link</Table.Th>
+                                        <Table.Th>{t('qwdtt.page.component.user')}</Table.Th>
+                                        <Table.Th>{t('qwdtt.page.component.status')}</Table.Th>
+                                        <Table.Th>{t('qwdtt.page.component.traffic')}</Table.Th>
+                                        <Table.Th>{t('qwdtt.page.component.link')}</Table.Th>
                                         <Table.Th />
                                     </Table.Tr>
                                 </Table.Thead>
@@ -552,7 +557,7 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                                                 <CopyButton value={user.link}>
                                                     {({ copied, copy }) => (
                                                         <ActionIcon
-                                                            aria-label="Copy qWDTT link"
+                                                            aria-label={t('qwdtt.page.component.copy-qwdtt-link')}
                                                             onClick={copy}
                                                             variant="subtle"
                                                         >
@@ -580,7 +585,7 @@ const QwdttPageForm = (props: IQwdttFormProps) => {
                                                         size="xs"
                                                         variant="light"
                                                     >
-                                                        Rotate
+                                                        {t('qwdtt.page.component.rotate')}
                                                     </Button>
                                                     <ActionIcon
                                                         color="red"

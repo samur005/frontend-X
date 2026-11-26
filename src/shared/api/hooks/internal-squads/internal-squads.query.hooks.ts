@@ -9,6 +9,10 @@ import { keepPreviousData } from '@tanstack/react-query'
 
 import { sToMs } from '@shared/utils/time-utils'
 
+import {
+    GetInternalSquadResponseSchema,
+    GetInternalSquadsResponseSchema
+} from '../../internal-squads-contract'
 import { createGetQueryHook, errorHandler } from '../../tsq-helpers'
 
 export const internalSquadsQueryKeys = createQueryKeys('internalSquads', {
@@ -30,7 +34,7 @@ export const internalSquadsQueryKeys = createQueryKeys('internalSquads', {
 
 export const useGetInternalSquads = createGetQueryHook({
     endpoint: GetInternalSquadsCommand.TSQ_url,
-    responseSchema: GetInternalSquadsCommand.ResponseSchema,
+    responseSchema: GetInternalSquadsResponseSchema,
     getQueryKey: () => internalSquadsQueryKeys.getInternalSquads.queryKey,
     rQueryParams: {
         placeholderData: keepPreviousData,
@@ -43,7 +47,7 @@ export const useGetInternalSquads = createGetQueryHook({
 
 export const useGetInternalSquad = createGetQueryHook({
     endpoint: GetInternalSquadCommand.TSQ_url,
-    responseSchema: GetInternalSquadCommand.ResponseSchema,
+    responseSchema: GetInternalSquadResponseSchema,
     routeParamsSchema: GetInternalSquadCommand.RequestParamSchema,
     getQueryKey: ({ route }) => internalSquadsQueryKeys.getInternalSquad(route!).queryKey,
     rQueryParams: {
