@@ -125,10 +125,11 @@ export const EditManyHostsDrawer = NiceModal.create((props: IProps) => {
             dirtyValues.finalMask = parseJsonField(values.finalMask)
         }
 
-        const nextIsQwdtt =
-            dirtyValues.isQwdtt !== undefined ? Boolean(dirtyValues.isQwdtt) : Boolean(values.isQwdtt)
+        const dirty = dirtyValues as typeof dirtyValues & { isQwdtt?: boolean }
+        const current = values as typeof values & { isQwdtt?: boolean }
+        const nextIsQwdtt = dirty.isQwdtt !== undefined ? Boolean(dirty.isQwdtt) : Boolean(current.isQwdtt)
 
-        if (dirtyValues.isQwdtt === true || (dirtyValues.isQwdtt === undefined && nextIsQwdtt)) {
+        if (dirty.isQwdtt === true || (dirty.isQwdtt === undefined && nextIsQwdtt)) {
             const nextNodes = (dirtyValues.nodes ?? values.nodes) as string[] | undefined
             if (!nextNodes || nextNodes.length !== 1) {
                 notifications.show({
@@ -149,7 +150,7 @@ export const EditManyHostsDrawer = NiceModal.create((props: IProps) => {
             }
         }
 
-        if (dirtyValues.isQwdtt === false) {
+        if (dirty.isQwdtt === false) {
             const inbound = (dirtyValues.inbound ?? values.inbound) as
                 | { configProfileInboundUuid?: string; configProfileUuid?: string }
                 | undefined
