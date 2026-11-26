@@ -28,9 +28,9 @@ const DEFINITIONS_REF_PREFIX = '#/definitions/'
 const PROTECTED_ROOT_KEYS = new Set(['api', 'inbounds', 'metrics', 'snippets', 'stats'])
 
 const CUSTOM_CORE_SCHEMA = {
-    title: 'Remnawave Custom Core',
+    title: 'Remnawave X Custom Core',
     markdownDescription: [
-        '**Remnawave custom field.** Not part of Xray-Core – it is handled by the Remnawave Node.',
+        '**Remnawave X custom field.** Not part of Xray-Core – it is handled by the Remnawave X Node.',
         '',
         '> ⚠️ **Beta feature. Use strictly at your own risk.**',
         '>',
@@ -209,9 +209,9 @@ export const MonacoSetupFeature = {
 
             const snippetSchema = {
                 name: 'snippet',
-                title: 'Remnawave Snippets',
+                title: 'Remnawave X Snippets',
                 markdownDescription:
-                    'Create your own snippets to quickly configure your **Outbounds** or **Rules**. \n\n\nReference them here, Remnawave will handle the rest.',
+                    'Create your own snippets to quickly configure your **Outbounds** or **Rules**. \n\n\nReference them here, Remnawave X will handle the rest.',
                 type: 'string',
                 enum: snippetNames,
                 markdownEnumDescriptions: snippetDescriptions,
@@ -224,7 +224,7 @@ export const MonacoSetupFeature = {
 
             const rootSnippetsSchema = {
                 name: 'snippets',
-                title: 'Remnawave Snippets',
+                title: 'Remnawave X Snippets',
                 markdownDescription: [
                     'Snippets merged into the **root** of this config.',
                     '',

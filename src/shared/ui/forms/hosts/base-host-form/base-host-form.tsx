@@ -302,7 +302,7 @@ export const BaseHostForm = <
     return (
         <form onSubmit={handleSubmit}>
             <HostFormDataProvider value={hostFormData}>
-                <HostOptionsProvider form={form} isBulkEdit={isBulkEdit}>
+                <HostOptionsProvider form={form} hideFields={isQwdtt && !isBulkEdit ? ['nodes'] : []} isBulkEdit={isBulkEdit}>
                     <Stack>
                         <SectionCard.Root>
                             <SectionCard.Section>
